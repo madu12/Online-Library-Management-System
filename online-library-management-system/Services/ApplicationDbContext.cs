@@ -19,12 +19,9 @@ namespace online_library_management_system.Services
 
             builder.Entity<IdentityUser>(e => {
                 e.ToTable(name: "Users").Ignore(c => c.AccessFailedCount)
-                                            .Ignore(c => c.UserName)
                                            .Ignore(c => c.EmailConfirmed)
                                            .Ignore(c => c.LockoutEnabled)
                                            .Ignore(c => c.LockoutEnd)
-                                           .Ignore(c => c.NormalizedEmail)
-                                           .Ignore(c => c.NormalizedUserName)
                                            .Ignore(c => c.PhoneNumberConfirmed)
                                            .Ignore(c => c.SecurityStamp)
                                            .Ignore(c => c.TwoFactorEnabled);
@@ -36,10 +33,10 @@ namespace online_library_management_system.Services
 
             builder.Entity<IdentityRole>(e => { e.ToTable(name: "Roles"); });
             builder.Entity<IdentityUserRole<string>>(e => { e.ToTable(name: "UserRoles").HasKey(x => new { x.UserId, x.RoleId }); });
-            builder.Ignore<IdentityUserToken<string>>();
-            builder.Ignore<IdentityUserLogin<string>>();
-            builder.Ignore<IdentityUserClaim<string>>();
-            builder.Ignore<IdentityRoleClaim<string>>();
+            builder.Entity<IdentityUserToken<string>>(e => { e.ToTable(name: "UserTokens"); });
+            builder.Entity<IdentityUserLogin<string>>(e => { e.ToTable(name: "UserLogins"); });
+            builder.Entity<IdentityUserClaim<string>>(e => { e.ToTable(name: "UserClaims"); });
+            builder.Entity<IdentityRoleClaim<string>>(e => { e.ToTable(name: "RoleClaims"); });
 
 
 
@@ -69,6 +66,9 @@ namespace online_library_management_system.Services
                 Email = "sydenhamlibrary@gmail.com",
                 FirstName = "Sydenham",
                 LastName = "Admin",
+                NormalizedEmail="sydenhamlibrary@gmail.com",
+                UserName = "Sydenham Admin",
+                NormalizedUserName = "sydenhamlibrary@gmail.com",
                 ConcurrencyStamp = ADMIN_ID,
             };
 

@@ -1,5 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using online_library_management_system.Services;
+using Microsoft.AspNetCore.Identity;
 
 internal class Program
 {
@@ -16,6 +17,9 @@ internal class Program
             options.UseSqlServer(connectionString);
             //options.UseOracle(connectionString);
         });
+
+        builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<ApplicationDbContext>();
+
 
 
         var app = builder.Build();
@@ -38,7 +42,7 @@ internal class Program
         app.MapControllerRoute(
             name: "default",
             pattern: "{controller=Home}/{action=Index}/{id?}");
-
+        app.MapRazorPages();
         app.Run();
     }
 }
