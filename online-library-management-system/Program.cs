@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using online_library_management_system.Services;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
+using online_library_management_system.Models;
 
 internal class Program
 {
@@ -8,19 +10,27 @@ internal class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
+        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+            
         // Add services to the container.
         builder.Services.AddControllersWithViews();
 
-        builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        {
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-            options.UseSqlServer(connectionString);
-            //options.UseOracle(connectionString);
-        });
+        builder.Services.AddDbContext<ApplicationDbContext>(
+            options => options.UseSqlServer(connectionString));
 
-        builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<ApplicationDbContext>();
+        builder.Services.AddIdentity<ApplicationUser, IdentityRole>(
+            options =>
+            {
+                options.SignIn.RequireConfirmedAccount = false;
+                options.Password.RequiredUniqueChars = 0;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 8;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireLowercase = false;
 
-
+            }).AddRoles<IdentityRole>()
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
 
         var app = builder.Build();
 
@@ -42,7 +52,7 @@ internal class Program
         app.MapControllerRoute(
             name: "default",
             pattern: "{controller=Home}/{action=Index}/{id?}");
-        app.MapRazorPages();
+        //app.MapRazorPages();
         app.Run();
     }
 }
