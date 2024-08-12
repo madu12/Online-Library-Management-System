@@ -284,7 +284,7 @@ $(function () {
   var owlObj = $('.staffpick-carousel');
   owlObj.owlCarousel({
     loop: false,
-    margin: 0,
+    margin: 15,
     nav: false,
     dots: true,
     responsiveClass: true,

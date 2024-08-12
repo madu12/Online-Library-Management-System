@@ -31,12 +31,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
-    <Folder Include="wwwroot\images\" />
     <Folder Include="ViewModels\" />
     <Folder Include="Views\Account\" />
     <Folder Include="Views\Admin\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Remove="wwwroot\images\" />
   </ItemGroup>
 </Project>
