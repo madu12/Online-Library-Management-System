@@ -1,45 +1,165 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta -->
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - online_library_management_system</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <title>
+        @ViewData["Title"] - Sydenham Library
+    </title>
+    <!-- Favicon -->
+    <link href="~/frontend/images/favicon.ico" rel="icon" type="image/x-icon" />
+
+    <!-- Fonts -->
+    <link href="~/frontend/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Animation-->
+    <link href="~/frontend/css/aos.css" rel="stylesheet" type="text/css" />
+
+    <!-- Mobile Menu -->
+    <link href="~/frontend/css/mmenu.css" rel="stylesheet" type="text/css" />
+    <link href="~/frontend/css/mmenu.positioning.css" rel="stylesheet" type="text/css" />
+
+    <!-- Stylesheet -->
+    <link href="~/frontend/css/style.css" rel="stylesheet" type="text/css" />
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="~/frontend/js/html5shiv.min.js"></script>
+        <script src="~/frontend/js/respond.min.js"></script>
+        <![endif]-->
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Sydenham Library</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        @*<li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>*@
-                    </ul>
-                    <partial name="_LoginPartial"/>
+<body class="layout-v2">
+    <!-- Start: Header Section -->
+    <header id="header" class="inner-navbar-wrapper navbar-wrapper">
+        <button id="myBtn" title="Go to top"><span>&#8593;</span></button>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <nav class="navbar navbar-default">
+                        <!-- Header Main Navigation-->
+                        <div class="col-sm-12 px-0">
+                            <div class="row">
+                                <div class="col-sm-4 col-md-2">
+                                    <div class="navbar-header">
+                                        <div class="navbar-brand">
+                                            <h2 class="m-0">
+                                                <a asp-area="" asp-controller="Home" asp-action="Index" class="logo">
+                                                    Sydenham Library
+                                                </a>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8 col-md-10 text-lg-right text-center">
+                                    <nav class="navbar navbar-expand-lg navbar-default hidden-sm hidden-xs">
+                                        <div class="collapse navbar-collapse">
+                                            <ul class="nav navbar-nav mr-auto">
+                                                <partial name="_MenuPartial" />
+                                            </ul>
+                                        </div>
+                                    </nav>
+                                    <div class="header-login-btn">
+                                        <partial name="_LoginPartial" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Header Main Navigation End-->
+                        <!-- Mobile Navigation-->
+                        <div class="mobile-menu d-lg-none">
+                            <a href="#mobile-menu"><i class="fa fa-navicon"></i></a>
+                            <div id="mobile-menu">
+                                <ul>
+                                    <li class="mobile-title">
+                                        <h4>Navigation</h4>
+                                        <a href="#" class="close"></a>
+                                    </li>
+                                    <partial name="_MenuPartial" />
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Mobile Navigation End-->
+                    </nav>
                 </div>
             </div>
-        </nav>
+        </div>
     </header>
-    <div class="container min-vh-85">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+    <!-- End: Header Section -->
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
+    @RenderBody()
+
+    <!-- Start: Footer -->
+    <footer class="site-footer">
+        <div class="sub-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="footer-text col-md-4">
+                        <p>&copy; 2023 <a asp-controller="Home" asp-action="Index">Sydenham Library</a>. All rights reserved.</p>
+                    </div>
+                    <div class="col-md-8 pull-right">
+                        <ul>
+                            <partial name="_MenuPartial" />
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- End: Footer -->
+    <!-- jQuery Latest Version 1.x -->
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+
+    <!-- jQuery UI -->
+    <script src="~/frontend/js/jquery-ui.min.js"></script>
+
+    <!-- jQuery Easing -->
+    <script src="~/frontend/js/jquery.easing.1.3.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="~/frontend/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Mobile Menu -->
+    <script src="~/frontend/js/mmenu.min.js"></script>
+
+    <!-- Harvey - State manager for media queries -->
+    <script src="~/frontend/js/harvey.min.js"></script>
+
+    <!-- Bootstrap Dragable Carousel -->
+    <script src='~/frontend/js/touchSwipe.js'></script>
+
+    <!-- UI Animation -->
+    <script src="~/frontend/js/aos.js"></script>
+    <script src="~/frontend/js/highlight.min.js"></script>
+
+    <!-- Waypoints - Load Elements on View -->
+    <script src="~/frontend/js/waypoints.min.js"></script>
+
+    <!-- Facts Counter -->
+    <script src="~/frontend/js/facts.counter.min.js"></script>
+
+    <!-- MixItUp - Category Filter -->
+    <script src="~/frontend/js/mixitup.min.js"></script>
+
+    <!-- Owl Carousel -->
+    <script src="~/frontend/js/owl.carousel.min.js"></script>
+
+    <!-- Accordion -->
+    <script src="~/frontend/js/accordion.min.js"></script>
+
+    <!-- Masonry -->
+    <script src="~/frontend/js/masonry.min.js"></script>
+
+    <!-- Carousel Swipe -->
+    <script src="~/frontend/js/carousel.swipe.min.js"></script>
+
+    <!-- Testimonial Home Page V3 -->
+    <script src="~/frontend/js/card-slider-min.js"></script>
+
+    <!-- Custom Scripts -->
+    <script src="~/frontend/js/main.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

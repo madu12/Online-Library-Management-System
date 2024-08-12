@@ -17,14 +17,14 @@ public class AccountController : Controller
         this.userManager = userManager;
     }
 
-    public IActionResult Login(string? returnUrl = null)
+    public IActionResult Signin(string? returnUrl = null)
     {
         ViewData["ReturnUrl"] = returnUrl;
         return View();
     }
 
     [HttpPost]
-    public async Task<IActionResult> Login(LoginVM model, string? returnUrl = null)
+    public async Task<IActionResult> Signin(SigninVM model, string? returnUrl = null)
     {
         ViewData["ReturnUrl"] = returnUrl;
         if (ModelState.IsValid)
@@ -49,14 +49,14 @@ public class AccountController : Controller
         return View(model);
     }
 
-    public IActionResult Register(string? returnUrl = null)
+    public IActionResult Signup(string? returnUrl = null)
     {
         ViewData["ReturnUrl"] = returnUrl;
         return View();
     }
 
     [HttpPost]
-    public async Task<IActionResult> Register(RegisterVM model, string? returnUrl = null)
+    public async Task<IActionResult> Signup(SignupVM model, string? returnUrl = null)
     {
         ViewData["ReturnUrl"] = returnUrl;
         if (ModelState.IsValid)

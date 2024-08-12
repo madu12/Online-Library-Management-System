@@ -1,0 +1,80 @@
+﻿@using online_library_management_system.ViewModels;
+@model SigninVM
+
+
+@{
+    ViewData["Title"] = "Sign In";
+}
+<!-- Start: Page Banner -->
+<section class="inner-page-banner">
+    <div class="container">
+        <div class="banner-header">
+            <h2>@ViewData["Title"]</h2>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center">
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</section>
+<!-- End: Page Banner -->
+<!-- Start: Signup Section -->
+<div id="content" class="site-content">
+    <div id="primary" class="content-area">
+        <main id="main" class="site-main">
+            <div class="signin-main">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <img class="rounded" src="~/frontend/images/section-images/signin-pages-image.png" alt="">
+                        </div>
+                        <div class="col-md-7">
+                            <div class="signin-up-form">
+                                <h6 class="sub-heading-v2">Welcome Back</h6>
+                                <h2 class="heading-v2">Welcome to Sydenham Library</h2>
+                                <form asp-action="Signin" method="post" asp-route-returnurl="@ViewData["ReturnUrl"]">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <div class="form-group">
+                                        <label asp-for="Email" class="control-label"></label>
+                                        <input asp-for="Email" class="form-control" />
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Password" class="control-label"></label>
+                                        <input asp-for="Password" class="form-control" />
+                                        <span asp-validation-for="Password" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <div class="form-group form-check">
+                                                <label asp-for="RememberMe" class="form-check-label">
+                                                    <input class="form-check-input" asp-for="RememberMe" />
+                                                    @Html.DisplayNameFor(m => m.RememberMe)
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col text-right">
+                                            <div class="form-group lost-password">
+                                                <a asp-action="Signup" class="text-decoration-none float-start mt-2" asp-route-returnurl="@ViewData["ReturnUrl"]">Don't have account?</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-secondary">Login For Access</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<!-- End: Signup Section -->
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

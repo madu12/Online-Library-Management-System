@@ -1,9 +1,46 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!-- Start: Slider Section -->
+<div data-ride="carousel" class="carousel slide" id="home-v1-header-carousel" data-interval="false" data-pause="hover">
+    <!-- Carousel slides -->
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <figure>
+                <img alt="Home Slide" class="d-block w-100" src="~/frontend/images/header-slider/home-v1/header-slide.jpg" />
+            </figure>
+            <div class="carousel-caption" data-aos="fade-down">
+                <h3>Online Learning Anytime, Anywhere!</h3>
+                <h2>Discover Your Roots</h2>
+                <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humor, or randomized words.</p>
+                <div class="slide-buttons hidden-sm hidden-xs">
+                    <a href="signin.html" class="btn btn-primary">Books & CDs<span></span></a>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <figure>
+                <img alt="Home Slide" class="d-block w-100" src="~/frontend/images/header-slider/home-v1/header-slide.jpg" />
+            </figure>
+            <div class="carousel-caption">
+                <h3>Online Learning Anytime, Anywhere!</h3>
+                <h2>Discover Your Roots</h2>
+                <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humor, or randomized words.</p>
+                <div class="slide-buttons hidden-sm hidden-xs">
+                    <a href="signin.html" class="btn btn-primary">Books & CDs<span></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Controls -->
+    <a class="carousel-control-prev" href="#home-v1-header-carousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#home-v1-header-carousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
 </div>
-
+<!-- End: Slider Section -->
