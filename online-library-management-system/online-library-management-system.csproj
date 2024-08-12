@@ -28,11 +28,13 @@
     <None Remove="ViewModels\" />
     <None Remove="Views\Account\" />
     <None Remove="Views\Admin\" />
+    <None Remove="Views\Contact\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
     <Folder Include="ViewModels\" />
     <Folder Include="Views\Account\" />
     <Folder Include="Views\Admin\" />
+    <Folder Include="Views\Contact\" />
   </ItemGroup>
 </Project>

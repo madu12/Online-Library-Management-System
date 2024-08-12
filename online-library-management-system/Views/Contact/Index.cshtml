@@ -1,0 +1,132 @@
+﻿@{
+    ViewData["Title"] = "Contact Us";
+}
+<!-- Start: Page Banner -->
+<section class="inner-page-banner">
+    <div class="container">
+        <div class="banner-header">
+            <h2>@ViewData["Title"]</h2>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center">
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</section>
+<!-- End: Page Banner -->
+
+<div class="about-company-detail">
+    <div class="container">
+        <ul>
+            <li>
+                <img src="~/frontend/images/location-icon.png" alt="">
+                <h6>Our Location</h6>
+                <ol>
+                    <li>123 Library Lane </li>
+                    <li>Sydenham, NY 10001</li>
+                </ol>
+            </li>
+            <li>
+                <img src="~/frontend/images/phone-icon.png" alt="">
+                <h6>Phone and Fax</h6>
+                <ol>
+                    <li><a href="tel:+123-456-7890"><em>Mobile:</em> +123-456-7890</a></li>
+                    <li><a href="tel:+123-456-7890"><em>Phone:</em> +12-3456-6789</a></li>
+                </ol>
+            </li>
+            <li>
+                <img src="~/frontend/images/email-website-icon.png" alt="">
+                <h6>Email Address</h6>
+                <ol>
+                    <li><a href="mailto:support@sydenhamlibrary.com">support@sydenhamlibrary.com</a></li>
+                    <li><a href="mailto:info@sydenhamlibrary.com">info@sydenhamlibrary.com</a></li>
+                </ol>
+            </li>
+            <li>
+                <img src="~/frontend/images/timming-icon.png" alt="" />
+                <h6>
+                    Library Hours
+                </h6>
+                <p>Mon - Thu: 9:00 am - 7:00 pm</p>
+                <p>Sat - Sun: 10:00 am - 4:00 pm</p>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- Start: Contact Us Section -->
+<section id="content" class="site-content">
+    <div id="primary" class="content-area">
+        <main id="main" class="site-main">
+            <div class="contact-main">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <h6 class="sub-heading-v2">Get In Touch</h6>
+                            <h2 class="heading-v2 mb-2">Send Us A Message</h2>
+                            <p class="lead-text">
+                                We’re here to help! Whether you have a question, need assistance with our online library
+                                system, or want to provide feedback, don’t hesitate to reach out. At Sydenham Library,
+                                we value your input and are committed to providing you with the best possible service.
+                            </p>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="contact-form">
+                                <form id="contact" name="contact" action="" method="post">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6">
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" placeholder="First Name" name="first-name" id="first-name" size="30" value="" aria-required="true" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6">
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" placeholder="Last Name" name="last-name" id="last-name" size="30" value="" aria-required="true" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6">
+                                            <div class="form-group">
+                                                <input class="form-control" type="email" pattern="" placeholder="Email" name="email" id="email" size="30" value="" aria-required="true" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6">
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" placeholder="Phone Number" name="phone" id="phone" size="30" value="" aria-required="true" />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <textarea class="form-control" placeholder="Write Your Message ..." id="message" aria-required="true"></textarea>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group form-submit">
+                                                <input class="btn btn-secondary" id="submit-contact-form" type="button" name="submit" value="Send Message" />
+                                            </div>
+                                        </div>
+                                        <div id="success" class="d-none">
+                                            <span>
+                                                Your message was sent successfully! Our
+                                                team will contact you soon.
+                                            </span>
+                                        </div>
+
+                                        <div id="error" class="d-none">
+                                            <span>
+                                                Something went wrong, try refreshing and
+                                                submitting the form again.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</section>
+<!-- End: Contact Us Section -->
