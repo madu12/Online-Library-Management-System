@@ -4,16 +4,26 @@
 @inject UserManager<ApplicationUser> UserManager
 
 
-    @if (SignInManager.IsSignedIn(User))
+@if (SignInManager.IsSignedIn(User))
+{
+
+
+    @if (User.IsInRole("Admin"))
     {
-            
-        <a class="btn btn-default" asp-action="Reservations" asp-controller="Account">Reservations</a>
-        <a class="btn btn-default" asp-action="Logout" asp-controller="Account">Logout</a>
+        <a class="btn btn-default" asp-action="Index" asp-controller="Admin">Admin Portal</a>
+
     }
     else
     {
-        
-        <a class="btn btn-default" id="signup" asp-controller="Account" asp-action="Signup">Sign Up</a>
-        <a class="btn btn-default" id="signin" asp-controller="Account" asp-action="Signin">Sign In</a>
+        <a class="btn btn-default" asp-action="Reservations" asp-controller="Account">Reservations</a>
 
     }
+    <a class="btn btn-default" asp-action="Logout" asp-controller="Account">Logout</a>
+}
+else
+{
+
+    <a class="btn btn-default" id="signup" asp-controller="Account" asp-action="Signup">Sign Up</a>
+    <a class="btn btn-default" id="signin" asp-controller="Account" asp-action="Signin">Sign In</a>
+
+}
