@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using online_library_management_system.Models
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
@@ -100,9 +101,9 @@
                                 </ul>
                             </li>
                             <li>
-                                <a asp-action="Index" asp-controller="Categories">
+                                <a asp-area="Admin" asp-page="/Category/Index">
                                     <i class="icon-Briefcase"><span class="path1"></span><span class="path2"></span></i>
-                                    <span>Categories</span>
+                                    <span>Category</span>
                                 </a>
                             </li>
                             <li>

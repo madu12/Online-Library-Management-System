@@ -29,6 +29,7 @@
     <None Remove="Views\Account\" />
     <None Remove="Views\Admin\" />
     <None Remove="Views\Contact\" />
+    <None Remove="Areas\Admin\Views\Category\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
@@ -36,5 +37,6 @@
     <Folder Include="Views\Account\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Contact\" />
+    <Folder Include="Areas\Admin\Views\Category\" />
   </ItemGroup>
 </Project>
