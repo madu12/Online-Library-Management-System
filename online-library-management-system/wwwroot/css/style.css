@@ -348,6 +348,7 @@ button,
 html [type="button"],
 [type="reset"],
 [type="submit"] {
+  appearance:button;
   -webkit-appearance: button;
 }
 
@@ -369,6 +370,7 @@ input[type="date"],
 input[type="time"],
 input[type="datetime-local"],
 input[type="month"] {
+  appearance:listbox;
   -webkit-appearance: listbox;
 }
 
@@ -407,6 +409,7 @@ progress {
 
 [type="search"] {
   outline-offset: -2px;
+  appearance: none;
   -webkit-appearance: none;
 }
 
@@ -5545,6 +5548,7 @@ button.close {
   padding: 0;
   background-color: transparent;
   border: 0;
+  appearance: none;
   -webkit-appearance: none;
 }
 
@@ -9925,6 +9929,7 @@ html input[type="button"],
 html input[type="reset"],
 html input[type="submit"] {
   cursor: pointer;
+  appearance: button;
   -webkit-appearance: button;
 }
 
@@ -13492,6 +13497,7 @@ a:focus {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
+  line-clamp: 1;
   -webkit-line-clamp: 1;
   /* number of lines to show */
   -webkit-box-orient: vertical;
@@ -14431,7 +14437,6 @@ a:focus {
 .team-member-layout2 .team-list .team-member .content-block {
   display: block;
   padding: 50px 30px;
-  vertical-align: top;
   position: relative;
 }
 
@@ -14518,6 +14523,7 @@ a:focus {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
+  line-clamp: 3;
   -webkit-line-clamp: 3;
   /* number of lines to show */
   -webkit-box-orient: vertical;
@@ -15102,6 +15108,7 @@ a:focus {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
+  line-clamp: 3;
   -webkit-line-clamp: 3;
   /* number of lines to show */
   -webkit-box-orient: vertical;
@@ -15184,6 +15191,7 @@ a:focus {
 }
 
 .news-events-v2 .news-events-list .single-news-event.first-news-event .content-block .member-info p {
+  line-clamp: 4;
   -webkit-line-clamp: 4;
 }
 
@@ -17466,6 +17474,7 @@ a:focus {
   font-size: 18px;
   text-overflow: ellipsis;
   display: -webkit-box;
+  line-clamp: 1;
   -webkit-line-clamp: 1;
   /* number of lines to show */
   -webkit-box-orient: vertical;
@@ -19594,7 +19603,6 @@ a:focus {
   position: relative;
   margin: 0 auto 72px;
   padding: 0;
-  *zoom: 1;
 }
 
 .bx-wrapper img {
@@ -19612,8 +19620,8 @@ a:focus {
 
 .bx-wrapper .bx-pager .bx-pager-item {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
+  zoom: 1;
+  display: inline;
 }
 
 .bx-wrapper .bx-controls-auto {
@@ -19624,8 +19632,8 @@ a:focus {
 
 .bx-wrapper .bx-controls-auto .bx-controls-auto-item {
   display: inline-block;
-  *zoom: 1;
-  *display: inline;
+  zoom: 1;
+  display: inline;
 }
 
 .bx-wrapper .bx-pager.bx-default-pager a {
@@ -19709,6 +19717,7 @@ body,
   -ms-touch-action: pan-Y;
   touch-action: manipulation;
   -moz-backface-visibility: hidden;
+  backface-visibility: hidden;
   /* fix firefox animation glitch */
 }
 
@@ -19729,6 +19738,7 @@ body,
   position: relative;
   overflow: hidden;
   /* fix for flashing background */
+  transform: translate3d(0px, 0px, 0px);
   -webkit-transform: translate3d(0px, 0px, 0px);
 }
 
@@ -19738,9 +19748,11 @@ body,
 .owl-carousel-full .owl-item,
 .owl-carousel-v3 .owl-wrapper,
 .owl-carousel-v3 .owl-item {
+  backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
   -ms-backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
   -webkit-transform: translate3d(0, 0, 0);
   -moz-transform: translate3d(0, 0, 0);
   -ms-transform: translate3d(0, 0, 0);
@@ -19752,6 +19764,7 @@ body,
   position: relative;
   min-height: 1px;
   float: left;
+  backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
@@ -20735,6 +20748,7 @@ body,
 
 .woocommerce .product-cart-table .quantity .quantity-input {
   -moz-appearance: textfield;
+  appearance: textfield;
   background: transparent;
   border: none;
   height: 100%;
@@ -21388,6 +21402,7 @@ body,
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
+  line-clamp: 4;
   -webkit-line-clamp: 4;
   /* number of lines to show */
   -webkit-box-orient: vertical;
@@ -21805,6 +21820,7 @@ body,
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
+  line-clamp: 1;
   -webkit-line-clamp: 1;
   /* number of lines to show */
   -webkit-box-orient: vertical;
@@ -22890,6 +22906,7 @@ body,
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
+  line-clamp: 1;
   -webkit-line-clamp: 1;
   /* number of lines to show */
   -webkit-box-orient: vertical;
@@ -22909,6 +22926,7 @@ body,
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
+  line-clamp: 1;
   -webkit-line-clamp: 1;
   /* number of lines to show */
   -webkit-box-orient: vertical;
@@ -23081,6 +23099,7 @@ body,
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
+  line-clamp: 1;
   -webkit-line-clamp: 1;
   /* number of lines to show */
   -webkit-box-orient: vertical;
@@ -23099,6 +23118,7 @@ body,
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
+  line-clamp: 1;
   -webkit-line-clamp: 1;
   /* number of lines to show */
   -webkit-box-orient: vertical;
@@ -23288,7 +23308,7 @@ body,
 }
 
 .staffpick-box .staffpick-carousel .single-book-media:hover .book-thumb img {
-  webkit-filter: blur(2px);
+  -webkit-filter: blur(2px);
   /* Chrome, Safari, Opera */
   filter: blur(2px);
 }
@@ -23309,7 +23329,7 @@ body,
   }
 
   .staffpick-box .staffpick-carousel .single-book-media:hover .book-thumb img {
-    webkit-filter: none;
+    -webkit-filter: none;
     /* Chrome, Safari, Opera */
     filter: none;
   }
@@ -23429,6 +23449,7 @@ body,
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 1;
+  line-clamp: 1;
   /* number of lines to show */
   -webkit-box-orient: vertical;
 }
@@ -23684,6 +23705,7 @@ body,
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 1;
+  line-clamp: 1;
   /* number of lines to show */
   -webkit-box-orient: vertical;
 }
@@ -23833,6 +23855,7 @@ body,
 
 .books-media-detail-v1 .single-book-media .book-detail .card-links .quantity .quantity-input {
   -moz-appearance: textfield;
+  appearance: textfield;
   background: transparent;
   border: none;
   height: 100%;
@@ -24046,6 +24069,7 @@ body,
 
   .books-media-detail-v1 .single-book-media .book-detail .card-links .quantity .quantity-input {
     -moz-appearance: textfield;
+    appearance: textfield;
     background: transparent;
     border: none;
     height: 100%;
@@ -24271,6 +24295,7 @@ body,
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   /* number of lines to show */
   -webkit-box-orient: vertical;
 }
@@ -24496,6 +24521,7 @@ body,
   width: calc(100% - 103px);
   text-align: center;
   -moz-appearance: textfield;
+  appearance: textfield;
   outline: none;
 }
 
@@ -24999,7 +25025,6 @@ body,
   line-height: 26px;
   margin-bottom: 20px;
   padding-left: 17px;
-  vertical-align: top;
 }
 
 .post-detail-content .tab-content-wrapper .tab-content ul li::before {
@@ -26758,6 +26783,7 @@ body,
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   /* number of lines to show */
   -webkit-box-orient: vertical;
   margin-bottom: 0;
@@ -27474,6 +27500,7 @@ body,
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
     /* number of lines to show */
     -webkit-box-orient: vertical;
   }
