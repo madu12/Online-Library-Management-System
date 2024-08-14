@@ -6,7 +6,7 @@ namespace online_library_management_system.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
     [Area("Admin")]
-    public class CategoryController : Controller
+    public class ContributorController : Controller
     {
         public ActionResult Index()
         {
@@ -17,5 +17,6 @@ namespace online_library_management_system.Areas.Admin.Controllers
         {
             return View();
         }
+
     }
 }

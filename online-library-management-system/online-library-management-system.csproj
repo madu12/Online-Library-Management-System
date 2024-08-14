@@ -30,6 +30,10 @@
     <None Remove="Views\Admin\" />
     <None Remove="Views\Contact\" />
     <None Remove="Areas\Admin\Views\Category\" />
+    <None Remove="Areas\Admin\Views\Inventory\" />
+    <None Remove="Areas\Admin\Views\Lending\" />
+    <None Remove="Areas\Admin\Views\Contributor\" />
+    <None Remove="Areas\Admin\Views\Messages\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
@@ -38,5 +42,9 @@
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Contact\" />
     <Folder Include="Areas\Admin\Views\Category\" />
+    <Folder Include="Areas\Admin\Views\Inventory\" />
+    <Folder Include="Areas\Admin\Views\Lending\" />
+    <Folder Include="Areas\Admin\Views\Contributor\" />
+    <Folder Include="Areas\Admin\Views\Messages\" />
   </ItemGroup>
 </Project>

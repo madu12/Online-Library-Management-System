@@ -52,15 +52,46 @@ internal class Program
 
         app.UseAuthorization();
 
-        app.MapControllerRoute(
-            name: "default",
-            pattern: "{controller=Home}/{action=Index}/{id?}");
+        // app.MapControllerRoute(
+        //     name: "default",
+        //     pattern: "{controller=Home}/{action=Index}/{id?}");
+        
+        #pragma warning disable ASP0014
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapAreaControllerRoute(
+               name: "Admin",
+                areaName: "Admin",
+                pattern: "Admin/{controller=Dashboard}/{action=Index}/{id?}");
 
-       
-        app.MapAreaControllerRoute(
-            name: "Admin",
-            areaName: "Admin",
-            pattern: "Admin/{controller=Dashboard}/{action=Index}/{id?}");
+            endpoints.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
+        });
+#pragma warning restore ASP0014
+
+
+        // Middleware to handle 404 errors
+        app.UseStatusCodePages(async context =>
+        {
+            var request = context.HttpContext.Request;
+            if (context.HttpContext.Response.StatusCode == 404)
+            {
+                var path = request.Path.Value?.ToLower() ?? string.Empty;
+
+                if (path.StartsWith("/admin"))
+                {
+                    context.HttpContext.Response.Redirect("/Admin/404");
+                }
+                else
+                {
+                    context.HttpContext.Response.Redirect("/404");
+                }
+            }
+
+            await Task.CompletedTask;
+        });
+
 
         // Initialize and seed the database
         using (var scope = app.Services.CreateScope())

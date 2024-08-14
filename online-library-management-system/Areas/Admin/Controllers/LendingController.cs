@@ -6,14 +6,14 @@ namespace online_library_management_system.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
     [Area("Admin")]
-    public class CategoryController : Controller
+    public class LendingController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Issue()
         {
             return View();
         }
 
-        public ActionResult Create()
+        public ActionResult Return()
         {
             return View();
         }

@@ -6,16 +6,13 @@ namespace online_library_management_system.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
     [Area("Admin")]
-    public class CategoryController : Controller
+    public class ErrorController : Controller
     {
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        public ActionResult Create()
+        [Route("Admin/404")]
+        public IActionResult PageNotFound()
         {
             return View();
         }
     }
+
 }
