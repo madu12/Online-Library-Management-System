@@ -1,7 +1,59 @@
-﻿@{
-    ViewData["Title"] = "Category List";
+﻿@model CategoryVM
+
+@{
+    ViewData["Title"] = "Categories";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Category List</h1>
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="d-flex align-items-center">
+        <div class="me-auto">
+            <h3 class="page-title">Categories</h3>
+        </div>
+    </div>
 </div>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-lg-5 col-12">
+            <partial name="_FormPartial"/>
+        </div>
+        <div class="col-lg-7 col-12">
+            <div class="box">
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="table-responsive">
+                        <table id="datatable" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th width="50">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var category in Model.Categories!)
+                                {
+                                    <tr>
+                                        <td>@category.Name</td>
+                                        <td>
+                                            <div class="d-flex align-items-center gap-items-2">
+                                                <a asp-area="Admin" asp-action="Edit" asp-controller="Category" asp-route-id="@category.Id" class="waves-effect waves-circle btn btn-circle btn-warning btn-xs"><i class="ti-marker-alt"></i></a>
+                                                <button type="button" onclick="confirmDelete(@category.Id)" class="waves-effect waves-circle btn btn-circle btn-danger btn-xs"><i class="ti-trash"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->
