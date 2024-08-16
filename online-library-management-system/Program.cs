@@ -68,7 +68,7 @@ internal class Program
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
         });
-#pragma warning restore ASP0014
+        #pragma warning restore ASP0014
 
 
         // Middleware to handle 404 errors

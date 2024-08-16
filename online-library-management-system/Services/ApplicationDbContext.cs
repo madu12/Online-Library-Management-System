@@ -41,5 +41,8 @@ namespace online_library_management_system.Services
             builder.Entity<IdentityRoleClaim<string>>(e => { e.ToTable(name: "RoleClaims"); });
         }
         public DbSet<Category> Categories { get; set; }
+
+        public DbSet<AuthorAndArtist> AuthorsAndArtists { get; set; }
+
     }
 }
