@@ -67,6 +67,64 @@ namespace online_library_management_system.Areas.Admin.Controllers
             return View(categoryVM);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            try
+            {
+                var category = await _context.Categories.FindAsync(id);
+                if (category == null)
+                {
+                    TempData["ErrorMessage"] = "Category not found.";
+                    return RedirectToAction(nameof(Index));
+                }
+
+                var viewModel = new CategoryVM
+                {
+                    NewCategory = category
+                };
+
+                return View(viewModel);
+            }
+            catch (Exception)
+            {
+                TempData["ErrorMessage"] = "Unable to load the category. Try again!";
+                return RedirectToAction(nameof(Index));
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, CategoryVM categoryVM)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View(categoryVM);
+                }
+
+                var category = await _context.Categories.FindAsync(id);
+                if (category == null)
+                {
+                    TempData["ErrorMessage"] = "Category not found.";
+                    return RedirectToAction(nameof(Index));
+                }
+
+                category.Name = categoryVM.NewCategory.Name;
+
+                _context.Categories.Update(category);
+                await _context.SaveChangesAsync();
+
+                TempData["SuccessMessage"] = "Category updated successfully!";
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception)
+            {
+                TempData["ErrorMessage"] = "Unable to edit the category. Try again!";
+                return View(categoryVM);
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
