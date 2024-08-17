@@ -1,4 +1,5 @@
-﻿@{
+﻿@model online_library_management_system.ViewModels.ItemVM
+@{
     ViewData["Title"] = "Home";
 }
 
@@ -72,203 +73,40 @@
     </div>
     <div class="container">
         <div class="staffpick-carousel books-media-grid-listing">
-            <div class="single-book-media item">
-                <div class="book-thumb">
-                    <span class="bg-light-blue price-tag">Book</span>
-                    <a href="#">
-                        <img src="~/images/books-media/book-media-list-1.jpg" alt="">
-                    </a>
-                </div>
-                <div class="book-detail">
-                    <div class="book-detail-hover">
-                        <h3 class="book-media-title">
-                            <a href="#">
-                                Flames of War By John
-                                Smith
-                            </a>
-                        </h3>
-                        <p><strong>Author:</strong> F. Scott Fitzgerald</p>
-                        <p><strong>ISBN:</strong> 9781581573268</p>
-                        <div class="card-links">
-                            <a href="#" class="btn btn-primary">
-                                Reserve Now
-                            </a>
+            @foreach (var item in Model.Items!)
+             {
+                <div class="single-book-media item">
+                    <div class="book-thumb">
+                        <span class="bg-light-blue price-tag">@item.ItemType</span>
+                        <a href="#">
+                            <img src="~/images/books-media/@item.ImagePath" alt="">
+                        </a>
+                    </div>
+                    <div class="book-detail">
+                        <div class="book-detail-hover">
+                            <h3 class="book-media-title">
+                                <a href="#">
+                                    @item.Title
+                                </a>
+                            </h3>
+                            <p><strong>Author:</strong> @item.AuthorsAndArtists?.Name</p>
+                            <p><strong>ISBN:</strong> @item.ISBN?@item.ISBN:"" </p>
+                            <div class="card-links">
+                                <a href="#" class="btn btn-primary">
+                                    Reserve Now
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
+                }
             </div>
-            <div class="single-book-media item">
-                <div class="book-thumb">
-                    <span class="bg-light-blue price-tag">Book</span>
-                    <a href="#">
-                        <img src="~/images/books-media/book-media-list-2.jpg" alt="">
-                    </a>
-                </div>
-                <div class="book-detail">
-                    <div class="book-detail-hover">
-                        <h3 class="book-media-title">
-                            <a href="#">The Room A Novel</a>
-                        </h3>
-                        <p><strong>Author:</strong> F. Scott Fitzgerald</p>
-                        <p><strong>ISBN:</strong> 9781581573268</p>
-                        <div class="card-links">
-                            <a href="#" class="btn btn-primary">
-                                Reserve Now
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="single-book-media item">
-                <div class="book-thumb">
-                    <span class="bg-pink price-tag">CD</span>
-                    <a href="#">
-                        <img src="~/images/books-media/book-media-list-3.jpg" alt="">
-                    </a>
-                </div>
-                <div class="book-detail">
-                    <div class="book-detail-hover">
-                        <h3 class="book-media-title">
-                            <a href="#">
-                                Red Queen, Power Is A
-                                Dangerous Game
-                            </a>
-                        </h3>
-                        <p><strong>Author:</strong> F. Scott Fitzgerald</p>
-                        <p><strong>ISBN:</strong> 9781581573268</p>
-                        <div class="card-links">
-                            <a href="#" class="btn btn-primary">
-                                Reserve Now
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="single-book-media item">
-                <div class="book-thumb">
-                    <span class="bg-light-blue price-tag">Book</span>
-                    <a href="#">
-                        <img src="~/images/books-media/book-media-list-4.jpg" alt="">
-                    </a>
-                </div>
-                <div class="book-detail">
-                    <div class="book-detail-hover">
-                        <h3 class="book-media-title">
-                            <a href="#">Two Lives One Girl</a>
-                        </h3>
-                        <p><strong>Author:</strong> F. Scott Fitzgerald</p>
-                        <p><strong>ISBN:</strong> 9781581573268</p>
-                        <div class="card-links">
-                            <a href="#" class="btn btn-primary">
-                                Reserve Now
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="single-book-media item">
-                <div class="book-thumb">
-                    <span class="bg-light-blue price-tag">Book</span>
-                    <a href="#">
-                        <img src="~/images/books-media/book-media-list-5.jpg" alt="">
-                    </a>
-                </div>
-                <div class="book-detail">
-                    <div class="book-detail-hover">
-                        <h3 class="book-media-title">
-                            <a href="#">A Boy In Winter</a>
-                        </h3>
-                        <p><strong>Author:</strong> F. Scott Fitzgerald</p>
-                        <p><strong>ISBN:</strong> 9781581573268</p>
-                        <div class="card-links">
-                            <a href="#" class="btn btn-primary">
-                                Reserve Now
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="single-book-media item">
-                <div class="book-thumb">
-                    <span class="bg-light-blue price-tag">Book</span>
-                    <a href="#">
-                        <img src="~/images/books-media/book-media-list-6.jpg" alt="">
-                    </a>
-                </div>
-                <div class="book-detail">
-                    <div class="book-detail-hover">
-                        <h3 class="book-media-title">
-                            <a href="#">Willows Of Fate</a>
-                        </h3>
-                        <p><strong>Author:</strong> F. Scott Fitzgerald</p>
-                        <p><strong>ISBN:</strong> 9781581573268</p>
-                        <div class="card-links">
-                            <a href="#" class="btn btn-primary">
-                                Reserve Now
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="single-book-media item">
-                <div class="book-thumb">
-                    <span class="bg-light-blue price-tag">Book</span>
-                    <a href="#">
-                        <img src="~/images/books-media/book-media-list-7.jpg" alt="">
-                    </a>
-                </div>
-                <div class="book-detail">
-                    <div class="book-detail-hover">
-                        <h3 class="book-media-title">
-                            <a href="#">
-                                How To Help Someone
-                                With
-                                Cancer
-                            </a>
-                        </h3>
-                        <p><strong>Author:</strong> F. Scott Fitzgerald</p>
-                        <p><strong>ISBN:</strong> 9781581573268</p>
-                        <div class="card-links">
-                            <a href="#" class="btn btn-primary">
-                                Reserve Now
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="single-book-media item">
-                <div class="book-thumb">
-                    <span class="bg-light-blue price-tag">Book</span>
-                    <a href="#">
-                        <img src="~/images/books-media/book-media-list-8.jpg" alt="">
-                    </a>
-                </div>
-                <div class="book-detail">
-                    <div class="book-detail-hover">
-                        <h3 class="book-media-title">
-                            <a href="#">
-                                Shatter Me - Taherh
-                                Mafi
-                            </a>
-                        </h3>
-                        <p><strong>Author:</strong> F. Scott Fitzgerald</p>
-                        <p><strong>ISBN:</strong> 9781581573268</p>
-                        <div class="card-links">
-                            <a href="#" class="btn btn-primary">
-                                Reserve Now
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="center-content">
             <a asp-controller="Catalog" asp-action="Index" class="btn btn-primary">View All Collections<span></span></a>
         </div>
     </div>
 </section>
 <!-- Start: StaffPick -->
-
 <!-- Start: Features -->
 <section class="features">
     <div class="title-content text-center">

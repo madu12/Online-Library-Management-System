@@ -1,21 +1,32 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using online_library_management_system.Models;
+using online_library_management_system.Services;
+using online_library_management_system.ViewModels;
 
 namespace online_library_management_system.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly ApplicationDbContext _context;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ApplicationDbContext context)
     {
-        _logger = logger;
+        _context = context;
     }
 
     public IActionResult Index()
     {
-        return View();
+        var viewModel = new ItemVM
+        {
+            Items = _context.Items.Include("Categories")
+                                      .Include("AuthorsAndArtists")
+                                      .OrderByDescending(i => i.ItemId)
+                                      .Take(6)
+                                      .ToList()
+        };
+        return View(viewModel);
     }
 
 
