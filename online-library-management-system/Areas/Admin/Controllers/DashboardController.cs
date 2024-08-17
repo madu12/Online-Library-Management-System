@@ -8,7 +8,7 @@ namespace online_library_management_system.Areas.Admin.Controllers
     [Area("Admin")]
     public class DashboardController : Controller
     {
-        public ActionResult Index()
+        public IActionResult Index()
         {
             return View();
         }

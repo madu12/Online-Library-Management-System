@@ -19,7 +19,7 @@
         </div>
         <div class="form-group">
             <label asp-for="NewItem.ItemType" class="form-label">Item Type</label>
-            <select asp-for="NewItem.ItemType" class="form-control">
+            <select asp-for="NewItem.ItemType" class="form-control select2">
                 <option value="">Select Type</option>
                 <option value="Book">Book</option>
                 <option value="CD">CD</option>
@@ -28,7 +28,7 @@
         </div>
         <div class="form-group">
             <label asp-for="NewItem.CategoryId" class="form-label">Category</label>
-            <select asp-for="NewItem.CategoryId" class="form-control" asp-items="ViewBag.Categories">
+            <select asp-for="NewItem.CategoryId" class="form-control select2" asp-items="ViewBag.Categories">
                 <option value="">Select Category</option>
             </select>
             <span asp-validation-for="NewItem.CategoryId" class="text-danger"></span>
@@ -36,7 +36,7 @@
 
         <div class="form-group">
             <label asp-for="NewItem.AuthorAndArtistId" class="form-label">Author/Artist</label>
-            <select asp-for="NewItem.AuthorAndArtistId" class="form-control" asp-items="ViewBag.AuthorsAndArtists">
+            <select asp-for="NewItem.AuthorAndArtistId" class="form-control select2" asp-items="ViewBag.AuthorsAndArtists">
                 <option value="">Select Author/Artist</option>
             </select>
             <span asp-validation-for="NewItem.AuthorAndArtistId" class="text-danger"></span>

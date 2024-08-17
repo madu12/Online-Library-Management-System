@@ -145,6 +145,7 @@ namespace online_library_management_system.Areas.Admin.Controllers
             {
                 if (!ModelState.IsValid)
                 {
+                    LoadCategoriesAndAuthors();
                     return View(itemVM);
                 }
 
@@ -196,6 +197,7 @@ namespace online_library_management_system.Areas.Admin.Controllers
             catch (Exception)
             {
                 TempData["ErrorMessage"] = "Unable to edit the item. Try again!";
+                LoadCategoriesAndAuthors();
                 return View(itemVM);
             }
         }

@@ -25,7 +25,8 @@
 
     <!-- Toastr CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
 
 </head>
 <body class="hold-transition light-skin sidebar-mini theme-primary fixed">
@@ -86,12 +87,12 @@
                         <!-- sidebar menu-->
                         <ul class="sidebar-menu" data-widget="tree">
                             <li>
-                                <a asp-area="Admin" asp-action="Index" asp-controller="Dashboard">
+                                <a href="/Admin">
                                     <i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
                                     <span>Dashboard</span>
                                 </a>
                             </li>
-                            <li class="treeview">
+                            <li class="treeview menu-open">
                                 <a href="#">
                                     <i class="icon-Book"><span class="path1"></span><span class="path2"></span></i>
                                     <span>Books & CDs</span>
@@ -99,7 +100,7 @@
                                         <i class="fa fa-angle-right pull-right"></i>
                                     </span>
                                 </a>
-                                <ul class="treeview-menu">
+                                <ul class="treeview-menu" style="display: block;">
                                     <li><a asp-area="Admin" asp-action="Create" asp-controller="Item"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Add New Item</a></li>
                                     <li><a asp-area="Admin" asp-action="Index" asp-controller="Item"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Manage Items</a></li>
                                 </ul>
@@ -177,6 +178,9 @@
     <!-- Joblly App -->
     <script src="~/admin/js/template.js"></script>
 
+
+    <!-- Select2 -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <!-- Include this script to trigger notifications -->
     <script>
         $(document).ready(function () {
@@ -189,6 +193,12 @@
             {
                 <text>toastr.error('@TempData["ErrorMessage"]');</text>
             }
+        });
+
+        $(document).ready(function () {
+            $('.select2').select2({
+                theme: 'bootstrap-5'
+            });
         });
 
         toastr.options = {
