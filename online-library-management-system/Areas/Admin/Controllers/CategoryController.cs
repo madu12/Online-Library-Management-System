@@ -129,18 +129,22 @@ namespace online_library_management_system.Areas.Admin.Controllers
         {
             try
             {
-                var category = await _context.Categories.FindAsync(id);
-                if (category != null)
-                {
-                    _context.Categories.Remove(category);
-                    await _context.SaveChangesAsync();
-
-                    return Json(new { success = true });
-                }
-                else
+                var category = await _context.Categories
+                    .Include(c => c.Items)
+                    .FirstOrDefaultAsync(c => c.Id == id);
+                if (category == null)
                 {
                     return Json(new { success = false, message = "Category not found." });
                 }
+
+                if (category.Items?.Count != 0)
+                {
+                    return Json(new { success = false, message = "Category cannot be deleted because it is in use." });
+                }
+
+                _context.Categories.Remove(category);
+                await _context.SaveChangesAsync();
+                return Json(new { success = true, message = "Category deleted successfully!" });
             }
             catch (Exception)
             {

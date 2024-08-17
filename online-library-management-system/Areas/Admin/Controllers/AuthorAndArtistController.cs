@@ -130,27 +130,26 @@ namespace online_library_management_system.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteAuthorAndArtist(int id)
         {
-            try
-            {
-                var authorAndArtist = await _context.AuthorsAndArtists.FindAsync(id);
-                if (authorAndArtist != null)
-                {
-                    _context.AuthorsAndArtists.Remove(authorAndArtist);
-                    await _context.SaveChangesAsync();
+            var authorAndArtist = await _context.AuthorsAndArtists
+                .Include(a => a.Items)
+                .FirstOrDefaultAsync(a => a.Id == id);
 
-                    return Json(new { success = true });
-                }
-                else
-                {
-                    return Json(new { success = false, message = "Author/Artist not found." });
-                }
-            }
-            catch (Exception)
+            if (authorAndArtist == null)
             {
-                return Json(new { success = false, message = "Unable to delete the Author/Artist. Try again!" });
+                return Json(new { success = false, message = "Author/Artist not found." });
             }
+
+            if (authorAndArtist.Items?.Count != 0)
+            {
+                return Json(new { success = false, message = "Author/Artist cannot be deleted because they are associated with items." });
+            }
+
+            _context.AuthorsAndArtists.Remove(authorAndArtist);
+            await _context.SaveChangesAsync();
+            return Json(new { success = true, message = "Author/Artist deleted successfully!" });
         }
+
     }
 }

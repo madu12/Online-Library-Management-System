@@ -1,0 +1,30 @@
+﻿@model online_library_management_system.ViewModels.ItemVM
+
+@{
+    ViewData["Title"] = "Create Item";
+}
+
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="d-flex align-items-center">
+        <div class="me-auto">
+            <h3 class="page-title">Create Item</h3>
+        </div>
+    </div>
+</div>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-lg-5 col-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h4 class="box-title">Create Item Details</h4>
+                </div>
+                <div class="box-body">
+                    <partial name="_FormPartial" />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

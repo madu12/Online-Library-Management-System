@@ -44,5 +44,9 @@ namespace online_library_management_system.Services
 
         public DbSet<AuthorAndArtist> AuthorsAndArtists { get; set; }
 
+        public DbSet<Item> Items { get; set; }
+
+
+
     }
 }

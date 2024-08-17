@@ -15,6 +15,8 @@ namespace online_library_management_system.Models
         [Required]
         [StringLength(50)]
         public string Type { get; set; } = "";
+
+        public ICollection<Item>? Items { get; set; }
     }
 
 }
