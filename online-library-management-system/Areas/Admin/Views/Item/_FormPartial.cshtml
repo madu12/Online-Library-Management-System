@@ -55,11 +55,13 @@
             <label asp-for="ImageFile" class="control-label">Upload Image</label>
             <input asp-for="ImageFile" class="form-control" type="file" accept="image/*" onchange="previewImage(event)" />
             <span asp-validation-for="ImageFile" class="text-danger"></span>
-
-            <div id="imagePreviewContainer" class="position-relative mt-4" style="@(Model.NewItem.ImagePath != null ? "display:inline-block;" : "display:none;")">
-                <img id="imagePreview" src="@(Model.NewItem.ImagePath != null ? Url.Content("~/images/books-media/" + Model.NewItem.ImagePath) : "#")" alt="Image Preview" style="max-width: 200px; max-height: 200px;" />
+            <br>
+            <div id="imagePreviewContainer" class="position-relative mt-4" style="@(Model.NewItem.ImagePath != null && Model.NewItem!.ItemId != 0 ? "display:inline-block;" : "display:none;")">
+                <a class="image-popup-vertical-fit" href="@(Model.NewItem.ImagePath != null && Model.NewItem!.ItemId != 0 ? Url.Content("~/images/books-media/" + Model.NewItem.ImagePath) : "#")" data-effect="mfp-zoom-in">
+                    <img id="imagePreview" src="@(Model.NewItem.ImagePath != null && Model.NewItem!.ItemId != 0 ? Url.Content("~/images/books-media/" + Model.NewItem.ImagePath) : "#")" class="rounded-0" alt="Image Preview" style="max-width: 200px; max-height: 200px;" />
+                </a>
                 <button type="button" id="removeImage" class="btn btn-danger btn-sm position-absolute" style="top: -15px; right: -15px;" onclick="removeImagePreview()">X</button>
-            </div>
+            </div>          
         </div>
 
     </div>
