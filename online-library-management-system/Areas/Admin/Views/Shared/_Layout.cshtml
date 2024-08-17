@@ -226,6 +226,29 @@
             }, 5000);
         });
 
+        function previewImage(event) {
+            var input = event.target;
+            var reader = new FileReader();
+            reader.onload = function () {
+                var imgElement = document.getElementById('imagePreview');
+                imgElement.src = reader.result;
+
+                var container = document.getElementById('imagePreviewContainer');
+                container.style.display = 'inline-block';
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+
+        function removeImagePreview() {
+            var imgElement = document.getElementById('imagePreview');
+            var container = document.getElementById('imagePreviewContainer');
+            var fileInput = document.querySelector('input[type="file"][asp-for="ImageFile"]');
+
+            imgElement.src = '#';
+            container.style.display = 'none';
+            fileInput.value = '';  // Reset file input
+        }
+
     </script>
 
     <!-- Render optional Scripts section -->

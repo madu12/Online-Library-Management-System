@@ -102,13 +102,125 @@ namespace online_library_management_system.Areas.Admin.Controllers
                 }
 
             }
-            catch (DbUpdateException)
+            catch (Exception)
             {
                 TempData["ErrorMessage"] = "Unable to save item. Try again!";
             }
 
             LoadCategoriesAndAuthors();
             return View(itemVM);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            try
+            {
+                var item = await _context.Items.FindAsync(id);
+                if (item == null)
+                {
+                    TempData["ErrorMessage"] = "Item not found.";
+                    return RedirectToAction(nameof(Index));
+                }
+
+                LoadCategoriesAndAuthors();
+                var viewModel = new ItemVM
+                {
+                    NewItem = item
+                };
+
+                return View(viewModel);
+            }
+            catch (Exception)
+            {
+                TempData["ErrorMessage"] = "Unable to load the item. Try again!";
+                return RedirectToAction(nameof(Index));
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, ItemVM itemVM)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View(itemVM);
+                }
+
+                var item = await _context.Items.FindAsync(id);
+                if (item == null)
+                {
+                    TempData["ErrorMessage"] = "Item not found.";
+                    return RedirectToAction(nameof(Index));
+                }
+
+                item.Title = itemVM.NewItem!.Title;
+                item.Description = itemVM.NewItem.Description;
+                item.ItemType = itemVM.NewItem.ItemType;
+                item.CategoryId = itemVM.NewItem.CategoryId;
+                item.PublishDate = itemVM.NewItem.PublishDate;
+                item.AuthorAndArtistId = itemVM.NewItem.AuthorAndArtistId;
+                item.ISBN = itemVM.NewItem.ISBN;
+
+                if (itemVM.ImageFile != null)
+                {
+                    // Save the new image file
+                    string newFileName = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Path.GetExtension(itemVM.ImageFile!.FileName);
+                    string imageFullPath = Path.Combine(_environment.WebRootPath, "images/books-media", newFileName);
+
+                    using (var stream = System.IO.File.Create(imageFullPath))
+                    {
+                        await itemVM.ImageFile.CopyToAsync(stream);
+                    }
+
+                    // Delete the old image file if it exists
+                    if (!string.IsNullOrEmpty(item.ImagePath))
+                    {
+                        var oldImagePath = Path.Combine(_environment.WebRootPath, "images/books-media", item.ImagePath);
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
+                    }
+
+                    item.ImagePath = newFileName;
+                }
+
+                _context.Items.Update(item);
+                await _context.SaveChangesAsync();
+
+                TempData["SuccessMessage"] = "Item updated successfully!";
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception)
+            {
+                TempData["ErrorMessage"] = "Unable to edit the item. Try again!";
+                return View(itemVM);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var item = await _context.Items.FindAsync(id);
+            if (item == null)
+            {
+                return Json(new { success = false, message = "Item not found." });
+            }
+
+            if (!string.IsNullOrEmpty(item.ImagePath))
+            {
+                var imagePath = Path.Combine(_environment.WebRootPath, "images/books-media", item.ImagePath);
+                if (System.IO.File.Exists(imagePath))
+                {
+                    System.IO.File.Delete(imagePath);
+                }
+            }
+
+            _context.Items.Remove(item);
+            await _context.SaveChangesAsync();
+            return Json(new { success = true, message = "Item deleted successfully!" });
         }
 
         [NonAction]

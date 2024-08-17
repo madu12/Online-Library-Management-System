@@ -58,7 +58,7 @@ namespace online_library_management_system.Areas.Admin.Controllers
                     return RedirectToAction(nameof(Index));
                 }
             }
-            catch (DbUpdateException)
+            catch (Exception)
             {
                 TempData["ErrorMessage"] = "Unable to save changes. Try again!";
             }

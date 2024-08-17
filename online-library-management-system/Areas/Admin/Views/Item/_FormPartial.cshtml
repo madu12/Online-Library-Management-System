@@ -4,7 +4,7 @@
     var action = Model.NewItem!.ItemId == 0 ? "Create" : "Edit";
 }
 
-<form class="form" asp-action="@action" asp-controller="Item" asp-area="Admin" method="post"  enctype="multipart/form-data">
+<form class="form" asp-action="@action" asp-controller="Item" asp-area="Admin" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="box-body">
         <div class="form-group">
@@ -52,9 +52,14 @@
             <span asp-validation-for="NewItem.ISBN" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="ImageFile" class="form-label">Upload Image</label>
-            <input asp-for="ImageFile" class="form-control" type="file" />
+            <label asp-for="ImageFile" class="control-label">Upload Image</label>
+            <input asp-for="ImageFile" class="form-control" type="file" accept="image/*" onchange="previewImage(event)" />
             <span asp-validation-for="ImageFile" class="text-danger"></span>
+
+            <div id="imagePreviewContainer" class="position-relative mt-4" style="@(Model.NewItem.ImagePath != null ? "display:inline-block;" : "display:none;")">
+                <img id="imagePreview" src="@(Model.NewItem.ImagePath != null ? Url.Content("~/images/books-media/" + Model.NewItem.ImagePath) : "#")" alt="Image Preview" style="max-width: 200px; max-height: 200px;" />
+                <button type="button" id="removeImage" class="btn btn-danger btn-sm position-absolute" style="top: -15px; right: -15px;" onclick="removeImagePreview()">X</button>
+            </div>
         </div>
 
     </div>
