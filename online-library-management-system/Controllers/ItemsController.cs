@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using online_library_management_system.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using online_library_management_system.Services;
+using online_library_management_system.Models;
 
 namespace online_library_management_system.Areas.Admin.Controllers
 {
@@ -97,9 +98,8 @@ namespace online_library_management_system.Areas.Admin.Controllers
             return View(viewModel);
         }
 
-
         [HttpPost]
-        public IActionResult Filter(string? search, List<string>? selectedCategories, List<string>? selectedItemTypes, string? availability)
+        public IActionResult Index(string? search, List<string>? selectedCategories, List<string>? selectedItemTypes, string? availability)
         {
             return RedirectToAction("Index", new
             {
@@ -108,6 +108,29 @@ namespace online_library_management_system.Areas.Admin.Controllers
                 selectedItemTypes = selectedItemTypes != null ? string.Join(",", selectedItemTypes) : null,
                 availability
             });
+        }
+
+
+        [Route("Items/{id}")]
+        public async Task<IActionResult> Details(int id)
+        {
+            var item = await _context.Items
+                .Include(i => i.AuthorsAndArtists)
+                .Include(i => i.Categories)
+                .FirstOrDefaultAsync(i => i.ItemId == id);
+
+            if (item == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            var viewModel = new ItemVM
+            {
+                Items = new List<Item> { item },
+                Categories = new SelectList(await _context.Categories.ToListAsync(), "Name", "Name")
+            };
+
+            return View(viewModel);
         }
 
     }

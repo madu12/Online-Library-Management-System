@@ -1,0 +1,90 @@
+﻿@model online_library_management_system.ViewModels.ItemVM
+
+@{
+    var item = Model.Items!.FirstOrDefault(); 
+    ViewData["Title"] = "Books & CDs";
+}
+<!-- Start: Page Banner -->
+<section class="inner-page-banner">
+    <div class="container">
+        <div class="banner-header">
+            <h2>@ViewData["Title"]</h2>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center">
+                    <li class="breadcrumb-item"><a asp-controller="Items" asp-action="Index">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</section>
+<!-- End: Page Banner -->
+<!-- Start: Book & Media Section -->
+<div id="content" class="site-content">
+    <div id="primary" class="content-area">
+        <main id="main" class="site-main">
+            <div class="books-media-list">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <partial name="_SearchPartial" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 col-lg-3">
+                            <aside id="secondary" class="sidebar widget-area" data-accordion-group>
+                                <partial name="_FiltersPartial" />
+                            </aside>
+                        </div>
+
+                        <div class="col-md-12 col-lg-9">
+                            @if (item != null)
+                                {
+                                <div class="books-media-detail-v1">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="single-book-media">
+                                                <div class="book-thumb">
+                                                    <img src="~/images/books-media/@item.ImagePath" alt="@item.Title" />
+                                                </div>
+                                                <div class="book-detail">
+
+                                                    <h3 class="book-media-title">@item!.Title</h3>
+                                                    <div class="item-info">
+                                                        <ul>
+                                                            <li><strong>Author/Artist:</strong> @item.AuthorsAndArtists?.Name</li>
+                                                            <li><strong>Category:</strong> @item.Categories?.Name</li>
+                                                            <li><strong>ISBN:</strong> @(string.IsNullOrWhiteSpace(item.ISBN) ? "N/A" : item.ISBN)</li>
+                                                            <li><strong>Publish Date:</strong> @item.PublishDate</li>
+                                                        </ul>
+                                                    </div>
+                                                    <p>@item.Description</p>
+                                                    <div class="card-links">
+                                                        @if (item.Availability == "Yes")
+                                                            {
+                                                            <a asp-controller="Items" asp-action="Reserve" asp-route-id="@item.ItemId" class="btn btn-primary">
+                                                                Reserve a Book
+                                                            </a>
+                                                            }
+                                                            else
+                                                            {
+                                                            <button class="btn btn-secondary" disabled>Not Available</button>
+                                                            }
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                }
+                            </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+</div>
+<!-- End: Books & Media Section -->

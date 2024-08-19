@@ -1,0 +1,10 @@
+﻿@model online_library_management_system.ViewModels.ItemVM
+
+<form method="post" asp-controller="Items" asp-action="Index">
+    <div class="event-search-filter">
+        <input type="text" name="search" placeholder="Search by Title, Author, or ISBN" value="@Model.Search" />
+        <button type="submit" class="btn btn-secondary">
+            <i class="fa fa-search"></i>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,51 @@
+﻿@model online_library_management_system.ViewModels.ItemVM
+
+
+<form method="post" asp-controller="Items" asp-action="Index">
+    <div class="button-group mb-4">
+        <button type="submit" class="btn btn-secondary">Filter</button>
+        <a href="@Url.Action("Index")" class="btn btn-secondary">Reset</a>
+    </div>
+    <div class="widget widget_related_search" data-accordion-group="">
+        <div data-content>
+            <div class="single-data-accordion open" data-accordion>
+                <h5 class="widget-sub-title" data-control>Categories</h5>
+                <div class="widget_checkbox_list" data-content>
+                    <div style="transition: max-height 300ms; max-height: 280px; overflow-y: scroll; overflow-x: hidden; margin-bottom: 20px; padding-top: 10px; ">
+                        @foreach (var category in Model.Categories!)
+                        {
+                            <div class="form-group">
+                                <input type="checkbox" id="category-@category.Text" class="form-check-input" name="selectedCategories[]" value="@category.Text" @(Model.SelectedCategories?.Contains(category.Text) == true ? "checked" : "") />
+                                <label class="form-check-label" for="category-@category.Text">@category.Text</label>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="single-data-accordion open" data-accordion>
+                <h5 class="widget-sub-title" data-control>Type</h5>
+                <div class="widget_checkbox_list" data-content>
+                    <div class="form-group">
+                        <input type="checkbox" id="itemType-Book" class="form-check-input" name="selectedItemTypes[]" value="Book" @(Model.SelectedItemTypes?.Contains("Book") == true ? "checked" : "") />
+                        <label class="form-check-label" for="itemType-Book">Books</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" id="itemType-CD" class="form-check-input" name="selectedItemTypes[]" value="CD" @(Model.SelectedItemTypes?.Contains("CD") == true ? "checked" : "") />
+                        <label class="form-check-label" for="itemType-CD">CDs</label>
+                    </div>
+                </div>
+            </div>
+            <div class="single-data-accordion open" data-accordion>
+                <h5 class="widget-sub-title" data-control>Availability</h5>
+                <div class="widget_checkbox_list" data-content>
+                    <div class="form-group">
+                        <input type="radio" id="availability-Yes" class="form-check-input" name="availability" value="Yes" @(Model.Availability?.Contains("Yes") == true ? "checked" : "") />
+                        <label class="form-check-label" for="availability-Yes">Available to Reserve</label>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>

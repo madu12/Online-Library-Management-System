@@ -95,8 +95,8 @@
                                 </a>
                                 @if (item.Availability == "Yes")
                                 {
-                                    <a href="@Url.Action("Borrow", new { id = item.ItemId })" class="btn btn-primary btn-block">
-                                        Borrow
+                                    <a asp-controller="Items" asp-action="Reserve" asp-route-id="@item.ItemId" class="btn btn-primary btn-block">
+                                        Reserve a Book
                                     </a>
                                 }
                                 else
