@@ -56,7 +56,9 @@
                                                             <li><strong>Author/Artist:</strong> @item.AuthorsAndArtists?.Name</li>
                                                             <li><strong>Category:</strong> @item.Categories?.Name</li>
                                                             <li><strong>ISBN:</strong> @(string.IsNullOrWhiteSpace(item.ISBN) ? "N/A" : item.ISBN)</li>
-                                                            <li><strong>Publish Date:</strong> @item.PublishDate</li>
+                                                            <li>
+                                                                <strong>Publish Date:</strong> @(item.PublishDate?.ToString("MMMM dd, yyyy") ?? "N/A")
+                                                            </li>
                                                         </ul>
                                                     </div>
                                                     <p>@item.Description</p>
