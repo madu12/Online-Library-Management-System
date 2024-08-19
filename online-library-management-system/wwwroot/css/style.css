@@ -27563,4 +27563,8 @@ body,
   display: block;
 }
 
+div:where(.swal2-container) .swal2-html-container{
+  padding: 1em 1.6em 2em !important;
+}
+
 /*# sourceMappingURL=style.css.map */

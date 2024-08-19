@@ -4,6 +4,8 @@ using online_library_management_system.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using online_library_management_system.Services;
 using online_library_management_system.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace online_library_management_system.Areas.Admin.Controllers
 {
@@ -11,9 +13,12 @@ namespace online_library_management_system.Areas.Admin.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public ItemsController(ApplicationDbContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public ItemsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> Index(string? search, string? selectedCategories, string? selectedItemTypes, string? availability, int page = 1, int pageSize = 9)
@@ -132,6 +137,71 @@ namespace online_library_management_system.Areas.Admin.Controllers
 
             return View(viewModel);
         }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> Reserve(int id)
+        {
+            var item = await _context.Items.FindAsync(id);
+
+            if (item == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            if (item.Availability != "Yes")
+            {
+                TempData["SwalType"] = "error";
+                TempData["SwalMessage"] = "This item is not available for reservation.";
+                return RedirectToAction(nameof(Details), new { id });
+            }
+
+            var loggedInUser = await _userManager.GetUserAsync(User);
+            if (loggedInUser == null)
+            {
+                TempData["SwalType"] = "error";
+                TempData["SwalMessage"] = "Unable to determine the current user. Please try again.";
+                return RedirectToAction(nameof(Details), new { id });
+            }
+
+            var userId = loggedInUser.Id;
+            var existingReservation = await _context.Reservations
+                .FirstOrDefaultAsync(r => r.ItemId == id && r.UserId == userId && (r.Status == ReservationStatus.Pending || r.Status == ReservationStatus.Approved));
+
+            if (existingReservation != null)
+            {
+                TempData["SwalType"] = "warning";
+                TempData["SwalMessage"] = "You already have a pending or approved reservation for this item.";
+                return RedirectToAction(nameof(Details), new { id });
+            }
+
+            try
+            {
+
+                var reservation = new Reservation
+                {
+                    ItemId = id,
+                    UserId = userId,
+                    ReservedAt = DateTime.UtcNow,
+                    Status = ReservationStatus.Pending
+                };
+
+                _context.Reservations.Add(reservation);
+                await _context.SaveChangesAsync();
+
+                TempData["SwalType"] = "success";
+                TempData["SwalMessage"] = "The item has been successfully reserved. Please wait for admin approval.";
+                return RedirectToAction(nameof(Details), new { id });
+
+            }
+            catch (Exception)
+            {
+                TempData["SwalType"] = "warning";
+                TempData["SwalMessage"] = "Unable to load the reservation. Try again!";
+                return RedirectToAction(nameof(Index));
+            }
+        }
+
 
     }
 }

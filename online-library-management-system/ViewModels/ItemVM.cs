@@ -32,7 +32,7 @@ namespace online_library_management_system.ViewModels
         // Total number of pages
         public int TotalPages { get; set; }
 
-        // List of categories for the dropdown
+        // List of categories
         public SelectList? Categories { get; set; } 
     }
 }

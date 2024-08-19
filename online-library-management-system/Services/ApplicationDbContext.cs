@@ -46,7 +46,7 @@ namespace online_library_management_system.Services
 
         public DbSet<Item> Items { get; set; }
 
-
+        public DbSet<Reservation> Reservations { get; set; }
 
     }
 }
