@@ -47,7 +47,7 @@
                                                                     <img src="~/images/books-media/@reservation.ItemImageUrl" alt="@reservation.ItemTitle" class="img-thumbnail" >
                                                                 </span>
                                                                 <div class="wishlist-item-name">
-                                                                    <h5>@reservation.ItemTitle</h5>
+                                                                    <h3><a asp-controller="Items" asp-action="Details" asp-route-id="@reservation.ItemId">@reservation.ItemTitle</a></h3>
                                                                     <p><strong>Author:</strong> @reservation.Author</p>
                                                                     <p><strong>ISBN:</strong> @reservation.ISBN</p>
                                                                 </div>

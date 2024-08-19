@@ -7,6 +7,8 @@ namespace online_library_management_system.ViewModels
     {
         public int ReservationId { get; set; }
 
+        public int ItemId { get; set; }
+
         public string? ItemTitle { get; set; }
 
         public string? ItemImageUrl { get; set; }

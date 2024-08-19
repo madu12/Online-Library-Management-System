@@ -221,6 +221,7 @@ namespace online_library_management_system.Areas.Admin.Controllers
                 .Select(r => new ReservationVM
                 {
                     ReservationId = r.ReservationId,
+                    ItemId = r.Item!.ItemId,
                     ItemTitle = r.Item!.Title,
                     ItemImageUrl = r.Item.ImagePath,
                     Author = r.Item.AuthorsAndArtists!.Name,
