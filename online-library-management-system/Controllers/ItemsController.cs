@@ -202,6 +202,37 @@ namespace online_library_management_system.Areas.Admin.Controllers
             }
         }
 
+        [Authorize]
+        [HttpGet]
+        [Route("MyReservations")]
+        public async Task<IActionResult> MyReservations()
+        {
+            var loggedInUser = await _userManager.GetUserAsync(User);
+            if (loggedInUser == null)
+            {
+                TempData["ErrorMessage"] = "Unable to determine the current user. Please try again.";
+                return RedirectToAction(nameof(MyReservations));
+            }
+            var userId = loggedInUser.Id;
+
+            var reservations = _context.Reservations
+                .Include(r => r.Item)
+                .Include(r => r.User)
+                .Select(r => new ReservationVM
+                {
+                    ReservationId = r.ReservationId,
+                    ItemTitle = r.Item!.Title,
+                    ItemImageUrl = r.Item.ImagePath,
+                    Author = r.Item.AuthorsAndArtists!.Name,
+                    ISBN = r.Item.ISBN,
+                    ReservedAt = r.ReservedAt,
+                    Status = r.Status,
+                    AdminComment = r.AdminComment
+                })
+                .ToList();
+
+            return View(reservations);
+        }
 
     }
 }

@@ -20668,7 +20668,8 @@ body,
 }
 
 .woocommerce .product-cart-table table th {
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
+  text-align: center !important;
 }
 
 .woocommerce .product-cart-table td {

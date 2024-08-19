@@ -10,8 +10,8 @@ namespace online_library_management_system.Models
         Approved,
         Rejected,
         Cancelled,
-        Expired,
-        Completed
+        Completed,
+        Expired
     }
     
 	public class Reservation

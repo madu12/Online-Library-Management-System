@@ -1,0 +1,81 @@
+﻿@model IEnumerable<online_library_management_system.ViewModels.ReservationVM>
+@{
+    ViewData["Title"] = "My Reservations";
+}
+<!-- Start: Page Banner -->
+<section class="inner-page-banner">
+    <div class="container">
+        <div class="banner-header">
+            <h2>@ViewData["Title"]</h2>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center">
+                    <li class="breadcrumb-item"><a asp-controller="Items" asp-action="Index">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<div id="content" class="site-content">
+    <div id="primary" class="content-area">
+        <main id="main" class="site-main">
+            <div class="cart-main">
+                <div class="container">
+                    <div class="row">
+                        <div class="cart-head">
+                        </div>
+                        <div class="col-md-12">
+                            <div class="page type-page status-publish hentry">
+                                <div class="entry-content">
+                                    <div class="woocommerce">
+                                         <div class="product-cart-table">
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Books/CDs</th>
+                                                        <th scope="col">Status</th>
+                                                        <th scope="col">Reserved At</th>
+                                                        <th scope="col">&nbsp;</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var reservation in Model){
+                                                        <tr>
+                                                            <td class="productname" data-label="Book/CD">
+                                                                <span class="cart-item-thumb">
+                                                                    <img src="~/images/books-media/@reservation.ItemImageUrl" alt="@reservation.ItemTitle" class="img-thumbnail" >
+                                                                </span>
+                                                                <div class="wishlist-item-name">
+                                                                    <h5>@reservation.ItemTitle</h5>
+                                                                    <p><strong>Author:</strong> @reservation.Author</p>
+                                                                    <p><strong>ISBN:</strong> @reservation.ISBN</p>
+                                                                </div>
+                                                            </td>
+                                                            <td data-label="Status"><strong>@reservation.StatusText</strong></td>
+                                                            <td data-label="Reserved At">
+                                                                @reservation.ReservedAt.ToString("g")
+                                                            </td>
+                                                            <td data-label="" class="text-center">
+                                                                @if (reservation.Status == ReservationStatus.Pending)
+                                                                {
+                                                                    <a asp-action="CancelReservation" asp-route-id="@reservation.ReservationId" class="btn btn-danger btn-sm">Cancel Reservation</a>
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                        }
+                                                    </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- .entry-content -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
