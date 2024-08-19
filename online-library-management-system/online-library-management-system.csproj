@@ -34,6 +34,7 @@
     <None Remove="Areas\Admin\Views\Lending\" />
     <None Remove="Areas\Admin\Views\Messages\" />
     <None Remove="Areas\Admin\Views\AuthorAndArtist\" />
+    <None Remove="Views\Items\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
@@ -46,5 +47,6 @@
     <Folder Include="Areas\Admin\Views\Lending\" />
     <Folder Include="Areas\Admin\Views\Messages\" />
     <Folder Include="Areas\Admin\Views\AuthorAndArtist\" />
+    <Folder Include="Views\Items\" />
   </ItemGroup>
 </Project>

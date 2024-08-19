@@ -1,0 +1,170 @@
+﻿@model online_library_management_system.ViewModels.ItemVM
+@{
+    ViewData["Title"] = "Books & CDs";
+}
+<!-- Start: Page Banner -->
+<section class="inner-page-banner">
+    <div class="container">
+        <div class="banner-header">
+            <h2>@ViewData["Title"]</h2>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center">
+                    <li class="breadcrumb-item"><a asp-controller="Items" asp-action="Index">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</section>
+<!-- End: Page Banner -->
+<!-- Start: Book & Media Section -->
+<div id="content" class="site-content">
+    <div id="primary" class="content-area">
+        <main id="main" class="site-main">
+            <div class="books-media-list">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form method="post" asp-action="Filter">
+                                <div class="event-search-filter">
+                                    <input type="text" name="search" placeholder="Search by Title, Author, or ISBN" value="@Model.Search"  />
+                                    <button type="submit" class="btn btn-secondary">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 col-lg-3">
+                            <aside id="secondary" class="sidebar widget-area" data-accordion-group>
+                                <form method="post" asp-action="Filter">
+                                    <div class="button-group mb-4">
+                                        <button type="submit" class="btn btn-secondary">Filter</button>
+                                        <a href="@Url.Action("Index")" class="btn btn-secondary">Reset</a>
+                                    </div>
+                                    <div class="widget widget_related_search" data-accordion-group="">
+                                        <div data-content>
+                                            <div class="single-data-accordion open" data-accordion>
+                                                <h5 class="widget-sub-title" data-control>Categories</h5>
+                                                <div class="widget_checkbox_list" data-content>
+                                                    @foreach (var category in Model.Categories!)
+                                                    {
+                                                        <div class="form-group">
+                                                            <input type="checkbox" id="category-@category.Text" class="form-check-input" name="selectedCategories[]" value="@category.Text" @(Model.SelectedCategories?.Contains(category.Text) == true ? "checked" : "") />
+                                                            <label class="form-check-label" for="category-@category.Text">@category.Text</label>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="single-data-accordion open" data-accordion>
+                                                <h5 class="widget-sub-title" data-control>Type</h5>
+                                                <div class="widget_checkbox_list" data-content>
+                                                    <div class="form-group">
+                                                        <input type="checkbox" id="itemType-Book" class="form-check-input" name="selectedItemTypes[]" value="Book" @(Model.SelectedItemTypes?.Contains("Book") == true ? "checked" : "") />
+                                                        <label class="form-check-label" for="itemType-Book">Books</label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="checkbox" id="itemType-CD" class="form-check-input" name="selectedItemTypes[]" value="CD" @(Model.SelectedItemTypes?.Contains("CD") == true ? "checked" : "") />
+                                                        <label class="form-check-label" for="itemType-CD">CDs</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="single-data-accordion open" data-accordion>
+                                                <h5 class="widget-sub-title" data-control>Availability</h5>
+                                                <div class="widget_checkbox_list" data-content>
+                                                    <div class="form-group">
+                                                        <input type="radio" id="availability-Yes" class="form-check-input" name="availability" value="Yes" @(Model.Availability?.Contains("Yes") == true ? "checked" : "") />
+                                                        <label class="form-check-label" for="availability-Yes">Available to Borrow</label>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </aside>
+                        </div>
+
+                        <div class="col-md-12 col-lg-9">
+                            <div class="books-media-listing">
+                                <div class="row">
+                                    @foreach (var item in Model.Items!)
+                                    {
+                                        <div class="col-sm-6 col-lg-6 col-xl-4">
+                                            <div class="single-book-media">
+                                                <div class="book-thumb">
+                                                    <a class="bg-light-blue price-tag" asp-controller="Items" asp-action="Index" asp-route-selectedItemTypes="@item.ItemType">
+                                                        @item.ItemType
+                                                    </a>
+                                                    <img src="~/images/books-media/@item.ImagePath" alt="@item.Title" />
+                                                </div>
+                                                <div class="book-detail">
+                                                    <h3 class="book-media-title">
+                                                        <a asp-controller="Items" asp-action="Details" asp-route-id="@item.ItemId">@item.Title</a>
+                                                    </h3>
+                                                    <p><strong>Author:</strong> @item.AuthorsAndArtists?.Name</p>
+                                                    <p><strong>ISBN:</strong> @(string.IsNullOrWhiteSpace(item.ISBN) ? "N/A" : item.ISBN)</p>
+                                                    <div class="card-links">
+
+                                                        <a class="btn btn-outline-primary btn-block" asp-controller="Items" asp-action="Details" asp-route-id="@item.ItemId">
+                                                            View More
+                                                        </a>
+                                                        @if (item.Availability == "Yes")
+                                                        {
+                                                            <a href="@Url.Action("Borrow", new { id = item.ItemId })" class="btn btn-primary btn-block">
+                                                                Borrow
+                                                            </a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a href="#" class="btn btn-primary btn-block disabled">
+                                                                Not Available
+                                                            </a>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            @if (Model.TotalPages > 1)
+                            {
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-center">
+                                        <li class="page-item first-page-link"></li>
+                                        @for (int i = 1; i <= Model.TotalPages; i++)
+                                        {
+                                            <li class="page-item">
+
+                                                <a class="page-link @(i == Model.CurrentPage ? "active" : "")" asp-action="Index"
+                                                   asp-route-page="@i"
+                                                   asp-route-search="@Model.Search"
+                                                   asp-route-selectedItemTypes="@string.Join(",", Model.SelectedItemTypes ?? new List<string>())"
+                                                   asp-route-selectedCategories="@string.Join(",", Model.SelectedCategories ?? new List<string>())"
+                                                   asp-route-availability="@Model.Availability">
+                                                    @i
+                                                </a>
+                                            </li>
+                                        }
+
+                                        <li class="page-item last-page-link"></li>
+                                    </ul>
+                                </nav>
+                            }
+                            </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+</div>
+<!-- End: Books & Media Section -->
+
+
+
+

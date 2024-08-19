@@ -18,13 +18,13 @@
                                 Discover thousands of Books and CDs across various subjects. Start your journey today with Sydenham Library.
                             </p>
                             <div class="hero-content-btn">
-                                <a asp-controller="Catalog" asp-action="Index" class="btn btn-primary">Books & CDs</a>
+                                <a asp-controller="Items" asp-action="Index" class="btn btn-primary">Books & CDs</a>
                                 <a asp-controller="Account" asp-action="Register" class="btn btn-light">Join Now</a>
                             </div>
                         </div>
                         <div class="col-md-7">
                             <div class="hero-image-v3">
-                                <img src="~/images/hero-image.png" alt="">
+                                <img src="~/images/hero-image.png" class="img-fluid" alt="">
                             </div>
                         </div>
                     </div>
@@ -55,7 +55,7 @@
                     learners of all ages by providing easy access to quality materials that support education, personal
                     growth, and lifelong learning. At Sydenham Library, we are committed to fostering a community where
                     knowledge is accessible to everyone. Our online library management system allows you to search our
-                    extensive catalog, reserve your favorite Books and CDs, and connect with library staff—all from the
+                    books and cds, reserve your favorite Books and CDs, and connect with library staff—all from the
                     comfort of your home. Whether you are a student, educator, or simply a lover of books,
                     Sydenham Library is here to support your learning journey. Join us today and explore the wealth of
                     resources we have to offer. At Sydenham Library, we believe that learning should be a
@@ -74,27 +74,37 @@
     <div class="container">
         <div class="staffpick-carousel books-media-grid-listing">
             @foreach (var item in Model.Items!)
-             {
+                {
                 <div class="single-book-media item">
                     <div class="book-thumb">
-                        <span class="bg-light-blue price-tag">@item.ItemType</span>
-                        <a href="#">
-                            <img src="~/images/books-media/@item.ImagePath" alt="">
+                        <a class="bg-light-blue price-tag" asp-controller="Items" asp-action="Index" asp-route-selectedItemTypes="@item.ItemType">
+                            @item.ItemType
                         </a>
+                        <img src="~/images/books-media/@item.ImagePath" alt="@item.Title" />
                     </div>
                     <div class="book-detail">
                         <div class="book-detail-hover">
                             <h3 class="book-media-title">
-                                <a href="#">
-                                    @item.Title
-                                </a>
+                                <a asp-controller="Items" asp-action="Details" asp-route-id="@item.ItemId">@item.Title</a>
                             </h3>
                             <p><strong>Author:</strong> @item.AuthorsAndArtists?.Name</p>
-                            <p><strong>ISBN:</strong> @item.ISBN?@item.ISBN:"" </p>
+                            <p><strong>ISBN:</strong> @(item.ISBN != "" ?item.ISBN:"") </p>
                             <div class="card-links">
-                                <a href="#" class="btn btn-primary">
-                                    Reserve Now
+                                <a class="btn btn-outline-primary btn-block" asp-controller="Items" asp-action="Details" asp-route-id="@item.ItemId">
+                                    View More
                                 </a>
+                                @if (item.Availability == "Yes")
+                                {
+                                    <a href="@Url.Action("Borrow", new { id = item.ItemId })" class="btn btn-primary btn-block">
+                                        Borrow
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a href="#" class="btn btn-primary btn-block disabled">
+                                        Not Available
+                                    </a>
+                                }
                             </div>
                         </div>
                     </div>
@@ -102,7 +112,7 @@
                 }
             </div>
         <div class="center-content">
-            <a asp-controller="Catalog" asp-action="Index" class="btn btn-primary">View All Collections<span></span></a>
+            <a asp-controller="Items" asp-action="Index" class="btn btn-primary">View All Collections<span></span></a>
         </div>
     </div>
 </section>
@@ -121,7 +131,7 @@
                     <div class="image">
                         <img src="~/images/features/books-collection.jpg" alt="Books Collection" />
                     </div>
-                    <h3>Explore Our Catalog</h3>
+                    <h3>Explore Our Books and CDs</h3>
                     <p>
                         Browse and search through our extensive collection of books and media on a wide range of subjects.
                     </p>
