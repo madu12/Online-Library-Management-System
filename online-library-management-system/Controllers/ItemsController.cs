@@ -190,7 +190,7 @@ namespace online_library_management_system.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
 
                 TempData["SwalType"] = "success";
-                TempData["SwalMessage"] = "The item has been successfully reserved. Please wait for admin approval.";
+                TempData["SwalMessage"] = "Your reservation has been successful. Our team will review and process it shortly.";
                 return RedirectToAction(nameof(Details), new { id });
 
             }

@@ -48,5 +48,8 @@ namespace online_library_management_system.Services
 
         public DbSet<Reservation> Reservations { get; set; }
 
+        public DbSet<UserMessage> UserMessages { get; set; }
+
+
     }
 }

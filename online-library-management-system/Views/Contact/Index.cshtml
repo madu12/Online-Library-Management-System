@@ -1,4 +1,6 @@
-﻿@{
+﻿@model online_library_management_system.ViewModels.SendMessageVM
+
+@{
     ViewData["Title"] = "Contact Us";
 }
 <!-- Start: Page Banner -->
@@ -73,52 +75,57 @@
                         </div>
                         <div class="col-md-12">
                             <div class="contact-form">
-                                <form id="contact" name="contact" action="" method="post">
+                                <form method="post" asp-controller="Contact" asp-action="Index">
                                     <div class="row">
                                         <div class="col-md-6 col-sm-6">
                                             <div class="form-group">
-                                                <input class="form-control" type="text" placeholder="First Name" name="first-name" id="first-name" size="30" value="" aria-required="true" />
+                                                <label for="FirstName">First Name</label>
+                                                <input type="text" class="form-control" asp-for="FirstName" />
+                                                <span asp-validation-for="FirstName" class="text-danger"></span>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-sm-6">
                                             <div class="form-group">
-                                                <input class="form-control" type="text" placeholder="Last Name" name="last-name" id="last-name" size="30" value="" aria-required="true" />
+                                                <label for="LastName">Last Name</label>
+                                                <input type="text" class="form-control" asp-for="LastName" />
+                                                <span asp-validation-for="LastName" class="text-danger"></span>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-sm-6">
                                             <div class="form-group">
-                                                <input class="form-control" type="email" pattern="" placeholder="Email" name="email" id="email" size="30" value="" aria-required="true" />
+                                                <label for="Email">Email</label>
+                                                <input type="email" class="form-control" asp-for="Email" />
+                                                <span asp-validation-for="Email" class="text-danger"></span>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-sm-6">
                                             <div class="form-group">
-                                                <input class="form-control" type="text" placeholder="Phone Number" name="phone" id="phone" size="30" value="" aria-required="true" />
+                                                <label for="Subject">Subject</label>
+                                                <input type="text" class="form-control" asp-for="Subject" />
+                                                <span asp-validation-for="Subject" class="text-danger"></span>
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <textarea class="form-control" placeholder="Write Your Message ..." id="message" aria-required="true"></textarea>
-                                                <div class="clearfix"></div>
+                                                <label for="Message">Message</label>
+                                                <textarea class="form-control" asp-for="Message"></textarea>
+                                                <span asp-validation-for="Message" class="text-danger"></span>
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group form-submit">
-                                                <input class="btn btn-secondary" id="submit-contact-form" type="button" name="submit" value="Send Message" />
+                                                <button type="submit" class="btn btn-primary">Send Message</button>
                                             </div>
                                         </div>
-                                        <div id="success" class="d-none">
-                                            <span>
-                                                Your message was sent successfully! Our
-                                                team will contact you soon.
-                                            </span>
-                                        </div>
+                                        @if (TempData["Success"] != null)
+                                        {
+                                            <div class="alert alert-success">@TempData["Success"]</div>
+                                        }
 
-                                        <div id="error" class="d-none">
-                                            <span>
-                                                Something went wrong, try refreshing and
-                                                submitting the form again.
-                                            </span>
-                                        </div>
+                                        @if (TempData["Error"] != null)
+                                        {
+                                            <div class="alert alert-danger">@TempData["Error"]</div>
+                                        }
                                     </div>
                                 </form>
                             </div>
