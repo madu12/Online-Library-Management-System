@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using online_library_management_system.Services;
 
@@ -11,9 +12,11 @@ using online_library_management_system.Services;
 namespace online_library_management_system.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240820104650_CreateLendingTable")]
+    partial class CreateLendingTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -424,7 +427,7 @@ namespace online_library_management_system.Migrations
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
-
+                    
                     b.Property<string>("PhoneNo")
                         .HasColumnType("nvarchar(max)");
 

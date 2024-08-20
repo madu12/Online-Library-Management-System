@@ -1,7 +1,97 @@
-﻿@{
-    ViewData["Title"] = "Messages";
+﻿@model AdminUserMessageVM
+
+@{
+    ViewData["Title"] = "User Messages";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Messages</h1>
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="d-flex align-items-center">
+        <div class="me-auto">
+            <h3 class="page-title">User Messages</h3>
+        </div>
+    </div>
 </div>
+
+<section class="content">
+    <div class="row">
+        <!-- Left Pane: Message List -->
+        <div class="col-md-5">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h4 class="box-title">Inbox</h4>
+                </div>
+                <div class="box-body">
+                    <div class="mailbox-messages inbox-bx">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped">
+                                <tbody>
+                                    @foreach (var message in Model.Messages!)
+                                    {
+                                        <tr class="message-item" data-url="@Url.Action("Preview", new { id = message.MessageId })">
+                                            <td>
+                                                <p class="mailbox-name mb-0 fs-16 fw-600">@message.FirstName @message.LastName</p>
+                                                <a class="mailbox-subject" href="#"><b>@message.Subject</b> - @message.Message.Substring(0, Math.Min(50, message.Message.Length))...</a>
+                                            </td>
+                                            <td class="mailbox-date">@message.SentAt.ToString("g")</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <div class="mailbox-controls">
+                        <div class="btn-group">
+                            @if (Model.HasPreviousPage)
+                            {
+                                <a asp-action="Index" asp-route-page="@(Model.CurrentPage - 1)" class="btn btn-primary btn-sm">
+                                    <i class="fa fa-chevron-left"></i> Back
+                                </a>
+                            }
+
+                            @if (Model.HasNextPage)
+                            {
+                                <a asp-action="Index" asp-route-page="@(Model.CurrentPage + 1)" class="btn btn-primary btn-sm">
+                                    Next <i class="fa fa-chevron-right"></i>
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Pane: Message Preview -->
+        <div class="col-md-7">
+            <div id="messagePreview">
+                <div class="box">
+                    <div class="box-body text-center">
+                        <p>Select an item to read Nothing is selected</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+
+    $(document).ready(function () {
+        $('.message-item').on('click', function () {
+            // Get the URL to fetch the message details
+            var url = $(this).data('url');
+
+            // Load the message details into the preview pane
+            $('#messagePreview').load(url);
+
+            // Highlight the selected message
+            $('.message-item').removeClass('active');
+            $(this).addClass('active');
+        });
+    });
+
+</script>
+

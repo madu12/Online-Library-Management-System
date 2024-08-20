@@ -37,9 +37,7 @@ namespace online_library_management_system.Migrations
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ReservedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
-                    AdminComment = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ApprovedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    ApprovedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {

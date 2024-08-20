@@ -52,7 +52,7 @@
         <header class="main-header">
             <div class="d-flex align-items-center logo-box justify-content-start">
                 <!-- Logo -->
-                <a asp-action="Index" asp-controller="Admin" class="logo">
+                <a href="/Admin" class="logo">
                     <!-- logo-->
                     <div class="logo-lg text-white">
                         Sydenham Library Admin
@@ -107,18 +107,11 @@
                                     <span>Dashboard</span>
                                 </a>
                             </li>
-                            <li class="treeview menu-open">
-                                <a href="#">
+                            <li>
+                                <a asp-area="Admin" asp-action="Index" asp-controller="Item">
                                     <i class="icon-Book"><span class="path1"></span><span class="path2"></span></i>
                                     <span>Books & CDs</span>
-                                    <span class="pull-right-container">
-                                        <i class="fa fa-angle-right pull-right"></i>
-                                    </span>
                                 </a>
-                                <ul class="treeview-menu" style="display: block;">
-                                    <li><a asp-area="Admin" asp-action="Create" asp-controller="Item"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Add New Item</a></li>
-                                    <li><a asp-area="Admin" asp-action="Index" asp-controller="Item"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Manage Items</a></li>
-                                </ul>
                             </li>
                             <li>
                                 <a asp-area="Admin" asp-action="Index" asp-controller="Category">
@@ -138,18 +131,11 @@
                                     <span>Reservations</span>
                                 </a>
                             </li>
-                            <li class="treeview">
-                                <a href="#">
+                            <li>
+                                <a asp-area="Admin" asp-action="Index" asp-controller="Lending">
                                     <i class="icon-Write"><span class="path1"></span><span class="path2"></span></i>
-                                    <span>Lending Management</span>
-                                    <span class="pull-right-container">
-                                        <i class="fa fa-angle-right pull-right"></i>
-                                    </span>
+                                    <span>Issue/Return</span>
                                 </a>
-                                <ul class="treeview-menu">
-                                    <li><a asp-area="Admin" asp-action="Issue" asp-controller="Lending"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Issue Items</a></li>
-                                    <li><a asp-area="Admin" asp-action="Return" asp-controller="Lending"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Return Items</a></li>
-                                </ul>
                             </li>
                             <li>
                                 <a asp-area="Admin" asp-action="Index" asp-controller="Messages">
@@ -195,6 +181,8 @@
     <!-- Joblly App -->
     <script src="~/admin/js/template.js"></script>
 
+    <script src="~/admin/assets/vendor_components/raphael/raphael.min.js"></script>
+    <script src="~/admin/assets/vendor_components/morris.js/morris.min.js"></script>
 
     <!-- Select2 -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -236,7 +224,7 @@
             "hideMethod": "fadeOut"
         };
 
-        
+
 
 
         document.addEventListener('DOMContentLoaded', function () {

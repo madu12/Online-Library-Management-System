@@ -50,8 +50,7 @@ namespace online_library_management_system.Areas.Admin.Controllers
                     UserFullName = $"{r.User!.FirstName} {r.User.LastName}",
                     UserEmail = r.User.Email,
                     ReservedAt = r.ReservedAt,
-                    Status = r.Status,
-                    AdminComment = r.AdminComment
+                    Status = r.Status
                 })
                 .ToListAsync();
 
@@ -62,6 +61,66 @@ namespace online_library_management_system.Areas.Admin.Controllers
             };
 
             return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Approve(int id)
+        {
+            var reservation = await _context.Reservations.Include(r => r.Item).FirstOrDefaultAsync(r => r.ReservationId == id);
+            if (reservation == null)
+            {
+                TempData["ErrorMessage"] = "Reservation not found.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            if (reservation.Item!.Availability == "No")
+            {
+                TempData["ErrorMessage"] = "The item is no longer available.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            reservation.Status = ReservationStatus.Approved;
+            reservation.ApprovedAt = DateTime.UtcNow;
+
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Reservation approved successfully.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Deny(int id)
+        {
+            var reservation = await _context.Reservations.Include(r => r.Item).FirstOrDefaultAsync(r => r.ReservationId == id);
+            if (reservation == null)
+            {
+                TempData["ErrorMessage"] = "Reservation not found.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            reservation.Status = ReservationStatus.Rejected;
+
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Reservation denied successfully.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Expire(int id)
+        {
+            var reservation = await _context.Reservations.Include(r => r.Item).FirstOrDefaultAsync(r => r.ReservationId == id);
+            if (reservation == null)
+            {
+                TempData["ErrorMessage"] = "Reservation not found.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            reservation.Status = ReservationStatus.Expired;
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Reservation expired and item is available again.";
+            return RedirectToAction(nameof(Index));
         }
 
         [NonAction]

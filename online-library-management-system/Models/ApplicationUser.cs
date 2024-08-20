@@ -11,6 +11,8 @@ namespace online_library_management_system.Models
 
         public string? LastName { get; set; } = "";
 
+        public string? PhoneNo { get; set; } = "";
+
         public string? Address { get; set; } = "";
 
     }

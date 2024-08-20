@@ -99,7 +99,7 @@
                                 @if (item.Availability == "Yes")
                                 {
                                     <a asp-controller="Items" asp-action="Reserve" asp-route-id="@item.ItemId" class="btn btn-primary btn-block">
-                                        Reserve a Book
+                                        Reserve a @(item.ItemType == "Book"? "Book" : "CD" )
                                     </a>
                                 }
                                 else

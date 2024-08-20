@@ -1,0 +1,13 @@
+﻿@model online_library_management_system.Models.UserMessage
+
+<div class="box">
+    <div class="box-header">
+        <h4>@Model.Subject</h4>
+    </div>
+    <div class="box-body">
+        <p><strong>From:</strong> @Model.FirstName @Model.LastName (@Model.Email)</p>
+        <p><strong>Sent At:</strong> @Model.SentAt.ToString("g")</p>
+        <hr />
+        <p>@Model.Message</p>
+    </div>
+</div>

@@ -24,10 +24,13 @@ namespace online_library_management_system.ViewModels
 
         public DateTime ReservedAt { get; set; }
 
+        public DateTime? ApprovedAt { get; set; }
+
         public ReservationStatus Status { get; set; }
 
-        public string? AdminComment { get; set; }
-
         public string StatusText => Status.ToString();
+
+        public bool IsOverdue { get; set; }
+
     }
 }

@@ -225,6 +225,7 @@ namespace online_library_management_system.Areas.Admin.Controllers
             var reservations = await _context.Reservations
                 .Include(r => r.Item)
                 .Include(r => r.User)
+                .Include(r => r.Lendings)
                 .Where(r => r.UserId == userId)
                 .OrderByDescending(r => r.ReservedAt)
                 .Skip((page - 1) * pageSize)
@@ -239,7 +240,8 @@ namespace online_library_management_system.Areas.Admin.Controllers
                     ISBN = r.Item.ISBN,
                     ReservedAt = r.ReservedAt,
                     Status = r.Status,
-                    AdminComment = r.AdminComment
+                    IsOverdue = r.Lendings!.Any(l => l.Status == LendingStatus.Issued && l.DueDate < DateTime.UtcNow)
+
                 })
                 .ToListAsync();
 

@@ -10,8 +10,9 @@ namespace online_library_management_system.Models
         Approved,
         Rejected,
         Cancelled,
-        Completed,
-        Expired
+        Expired,
+        Issued,
+        Completed
     }
     
 	public class Reservation
@@ -35,11 +36,9 @@ namespace online_library_management_system.Models
         [Required]
         public ReservationStatus Status { get; set; } = ReservationStatus.Pending;
 
-        public string? AdminComment { get; set; } 
+        public DateTime? ApprovedAt { get; set; }
 
-        public DateTime? ApprovedAt { get; set; } 
-
-        public DateTime? ExpirationDate { get; set; } 
+        public virtual ICollection<Lending>? Lendings { get; set; }
     }
 }
 

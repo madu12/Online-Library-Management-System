@@ -3,6 +3,7 @@
     var swalType = TempData["SwalType"]?.ToString();
     var swalMessage = TempData["SwalMessage"]?.ToString();
     ViewData["Title"] = "My Reservations";
+    var hasOverdueItems = Model.Reservations!.Any(r => r.IsOverdue);
 }
 <!-- Start: Page Banner -->
 <section class="inner-page-banner">
@@ -25,7 +26,14 @@
             <div class="cart-main">
                 <div class="container">
                     <div class="row">
-                        <div class="cart-head"></div>
+                        <div class="cart-head col-12">
+                            @if (hasOverdueItems)
+                            {
+                                <div class="alert alert-danger">
+                                    <strong>Warning!</strong> You have overdue items. Please return them as soon as possible.
+                                </div>
+                            }
+                        </div>
                         <div class="col-md-12">
                             <div class="page type-page status-publish hentry">
                                 <div class="entry-content">
@@ -54,7 +62,13 @@
                                                                     <p><strong>ISBN:</strong> @reservation.ISBN</p>
                                                                 </div>
                                                             </td>
-                                                            <td data-label="Status"><strong>@reservation.StatusText</strong></td>
+                                                            <td data-label="Status">
+                                                                <strong>@reservation.StatusText</strong>
+                                                                @if (reservation.IsOverdue)
+                                                                {
+                                                                    <span class="text-danger"> (Overdue)</span>
+                                                                }
+                                                            </td>
                                                             <td data-label="Reserved At">
                                                                 @reservation.ReservedAt.ToString("g")
                                                             </td>

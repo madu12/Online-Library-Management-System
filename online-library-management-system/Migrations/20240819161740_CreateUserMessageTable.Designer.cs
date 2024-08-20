@@ -324,13 +324,8 @@ namespace online_library_management_system.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReservationId"));
 
-                    b.Property<string>("AdminComment")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ApprovedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("ExpirationDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("ItemId")
@@ -401,6 +396,9 @@ namespace online_library_management_system.Migrations
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
                     b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+                    
+                    b.Property<string>("PhoneNo")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")

@@ -14,6 +14,10 @@ namespace online_library_management_system.ViewModels
         public string? LastName { get; set; }
 
         [Required]
+        [Display(Name = "Phone No")]
+        public string? PhoneNo { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string? Email { get; set; }

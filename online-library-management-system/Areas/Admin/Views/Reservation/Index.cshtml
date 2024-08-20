@@ -24,12 +24,12 @@
                 <!-- /.box-header -->
                 <div class="box-body">
                     <div class="table-responsive">
-                        <form asp-action="Index" method="get" class="mx-4 mb-3 col-md-4 d-inline-block" id="statusFilter">
+                        <form asp-action="Index" method="get" class="mx-4 mb-3 d-inline-block" id="statusFilter">
                             <div class="form-group row">
                                 <label class="col-form-label col-md-3" for="Status">Status:</label>
                                 <div class="col-md-9">
                                     <select asp-for="Status" class="form-control" asp-items="ViewBag.Statuses" onchange="this.form.submit()">
-                                        <option value="">All Statuses</option>
+                                        <option value="">All</option>
                                     </select>
                                 </div>
                             </div>
@@ -40,6 +40,7 @@
                                     <th>Reservation ID</th>
                                     <th>Item</th>
                                     <th>User</th>
+                                    <th>Email</th>
                                     <th>Status</th>
                                     <th>Date Reserved</th>
                                     <th>Action</th>
@@ -51,13 +52,34 @@
                                     <tr>
                                         <td>@reservation.ReservationId</td>
                                         <td>@reservation.ItemTitle</td>
+                                        <td>@reservation.UserFullName.</td>
                                         <td>@reservation.UserEmail</td>
                                         <td>@reservation.Status</td>
                                         <td>@reservation.ReservedAt.ToString("g")</td>
                                         <td>
-                                            <a asp-action="Approve" asp-route-id="@reservation.ReservationId" class="btn btn-success btn-sm">Approve</a>
-                                            <a asp-action="Deny" asp-route-id="@reservation.ReservationId" class="btn btn-danger btn-sm">Deny</a>
-                                            <a asp-action="Expire" asp-route-id="@reservation.ReservationId" class="btn btn-warning btn-sm">Expire</a>
+                                            <!-- Approve Button: Show only if status is Pending -->
+                                            @if (reservation.Status == ReservationStatus.Pending)
+                                            {
+                                                <form method="post" asp-action="Approve" asp-route-id="@reservation.ReservationId" class="d-inline">
+                                                    <button type="submit" class="btn btn-success btn-sm">Approve</button>
+                                                </form>
+                                            }
+
+                                            <!-- Deny Button: Show only if status is Pending -->
+                                            @if (reservation.Status == ReservationStatus.Pending)
+                                            {
+                                                <form method="post" asp-action="Deny" asp-route-id="@reservation.ReservationId" class="d-inline">
+                                                    <button type="submit" class="btn btn-danger btn-sm">Deny</button>
+                                                </form>
+                                            }
+
+                                            <!-- Expire Button: Show only if status is Approved and more than 2 days have passed since approval -->
+                                            @if (reservation.Status == ReservationStatus.Approved && reservation.ReservedAt!.AddDays(2) <= DateTime.UtcNow)
+                                            {
+                                                <form method="post" asp-action="Expire" asp-route-id="@reservation.ReservationId" class="d-inline">
+                                                    <button type="submit" class="btn btn-warning btn-sm">Expire</button>
+                                                </form>
+                                            }
                                         </td>
                                     </tr>
                                 }
