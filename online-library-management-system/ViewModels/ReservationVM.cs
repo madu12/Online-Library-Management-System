@@ -17,6 +17,11 @@ namespace online_library_management_system.ViewModels
 
         public string? ISBN { get; set; }
 
+        public string? UserFullName { get; set; }
+
+        public string? UserEmail { get; set; }
+
+
         public DateTime ReservedAt { get; set; }
 
         public ReservationStatus Status { get; set; }

@@ -190,7 +190,7 @@ namespace online_library_management_system.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
 
                 TempData["SwalType"] = "success";
-                TempData["SwalMessage"] = "Your reservation has been successful. Our team will review and process it shortly.";
+                TempData["SwalMessage"] = $"Your reservation has been successful! Reservation ID: #{reservation.ReservationId.ToString("D5")} Our team will review and process it shortly.";
                 return RedirectToAction(nameof(Details), new { id });
 
             }
@@ -205,7 +205,7 @@ namespace online_library_management_system.Areas.Admin.Controllers
         [Authorize]
         [HttpGet]
         [Route("MyReservations")]
-        public async Task<IActionResult> MyReservations()
+        public async Task<IActionResult> MyReservations(int page = 1, int pageSize = 10)
         {
             var loggedInUser = await _userManager.GetUserAsync(User);
             if (loggedInUser == null)
@@ -213,11 +213,22 @@ namespace online_library_management_system.Areas.Admin.Controllers
                 TempData["ErrorMessage"] = "Unable to determine the current user. Please try again.";
                 return RedirectToAction(nameof(MyReservations));
             }
+
             var userId = loggedInUser.Id;
 
-            var reservations = _context.Reservations
+            // Calculate total number of reservations
+            var totalReservations = await _context.Reservations
+                .Where(r => r.UserId == userId)
+                .CountAsync();
+
+            // Fetch reservations with pagination
+            var reservations = await _context.Reservations
                 .Include(r => r.Item)
                 .Include(r => r.User)
+                .Where(r => r.UserId == userId)
+                .OrderByDescending(r => r.ReservedAt)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .Select(r => new ReservationVM
                 {
                     ReservationId = r.ReservationId,
@@ -230,10 +241,21 @@ namespace online_library_management_system.Areas.Admin.Controllers
                     Status = r.Status,
                     AdminComment = r.AdminComment
                 })
-                .ToList();
+                .ToListAsync();
 
-            return View(reservations);
+            // Calculate total pages
+            var totalPages = (int)Math.Ceiling(totalReservations / (double)pageSize);
+
+            var viewModel = new MyReservationsVM
+            {
+                Reservations = reservations,
+                CurrentPage = page,
+                TotalPages = totalPages
+            };
+
+            return View(viewModel);
         }
+
 
 
         [Authorize]

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<online_library_management_system.ViewModels.ReservationVM>
+﻿@model online_library_management_system.ViewModels.MyReservationsVM
 @{
     var swalType = TempData["SwalType"]?.ToString();
     var swalMessage = TempData["SwalMessage"]?.ToString();
@@ -25,8 +25,7 @@
             <div class="cart-main">
                 <div class="container">
                     <div class="row">
-                        <div class="cart-head">
-                        </div>
+                        <div class="cart-head"></div>
                         <div class="col-md-12">
                             <div class="page type-page status-publish hentry">
                                 <div class="entry-content">
@@ -42,7 +41,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach (var reservation in Model)
+                                                    @foreach (var reservation in Model.Reservations!)
                                                     {
                                                         <tr>
                                                             <td class="productname" data-label="Book/CD">
@@ -72,6 +71,31 @@
                                                 </tbody>
                                             </table>
                                         </div>
+
+                                        <!-- Pagination -->
+                                        <nav aria-label="Reservation pagination">
+                                            <ul class="pagination justify-content-center">
+                                                @if (Model.HasPreviousPage)
+                                                {
+                                                    <li class="page-item">
+                                                        <a class="page-link" asp-action="MyReservations" asp-route-page="@(Model.CurrentPage - 1)">Previous</a>
+                                                    </li>
+                                                }
+                                                @for (var i = 1; i <= Model.TotalPages; i++)
+                                                {
+                                                    <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                                                        <a class="page-link" asp-action="MyReservations" asp-route-page="@i">@i</a>
+                                                    </li>
+                                                }
+                                                @if (Model.HasNextPage)
+                                                {
+                                                    <li class="page-item">
+                                                        <a class="page-link" asp-action="MyReservations" asp-route-page="@(Model.CurrentPage + 1)">Next</a>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        </nav>
+
                                     </div>
                                 </div>
                                 <!-- .entry-content -->
@@ -84,10 +108,7 @@
     </div>
 </div>
 
-
-<script type="text/javascript">
-
-    function confirmCancel(url) {
+<script type="text/javascript">function confirmCancel(url) {
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -101,9 +122,7 @@
                 window.location.href = url;
             }
         });
-    }
-
-</script>
+    }</script>
 @if (!string.IsNullOrEmpty(swalType) && !string.IsNullOrEmpty(swalMessage))
 {
     <script type="text/javascript">
@@ -111,7 +130,7 @@
             Swal.fire({
                 icon: '@swalType',
                 title: 'Reservation Status',
-                text: '@swalMessage',
+                html: '@swalMessage',
                 showConfirmButton: false,
                 timer: 5000,
                 timerProgressBar: true

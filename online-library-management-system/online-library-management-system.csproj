@@ -35,6 +35,7 @@
     <None Remove="Areas\Admin\Views\Messages\" />
     <None Remove="Areas\Admin\Views\AuthorAndArtist\" />
     <None Remove="Views\Items\" />
+    <None Remove="Areas\Admin\Views\Reservation\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
@@ -48,5 +49,6 @@
     <Folder Include="Areas\Admin\Views\Messages\" />
     <Folder Include="Areas\Admin\Views\AuthorAndArtist\" />
     <Folder Include="Views\Items\" />
+    <Folder Include="Areas\Admin\Views\Reservation\" />
   </ItemGroup>
 </Project>
