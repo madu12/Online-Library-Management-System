@@ -235,5 +235,58 @@ namespace online_library_management_system.Areas.Admin.Controllers
             return View(reservations);
         }
 
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> CancelReservation(int id)
+        {
+            try
+            {
+                var reservation = await _context.Reservations.FindAsync(id);
+
+                if (reservation == null)
+                {
+                    TempData["SwalType"] = "error";
+                    TempData["SwalMessage"] = "Reservation not found.";
+                    return RedirectToAction(nameof(MyReservations));
+                }
+
+                var loggedInUser = await _userManager.GetUserAsync(User);
+                if (loggedInUser == null)
+                {
+                    TempData["SwalType"] = "error";
+                    TempData["SwalMessage"] = "Unable to determine the current user. Please try again.";
+                    return RedirectToAction(nameof(MyReservations));
+                }
+
+                if (reservation.UserId != loggedInUser.Id)
+                {
+                    TempData["SwalType"] = "error";
+                    TempData["SwalMessage"] = "You are not authorized to cancel this reservation.";
+                    return RedirectToAction(nameof(MyReservations));
+                }
+
+                if (reservation.Status != ReservationStatus.Pending)
+                {
+                    TempData["SwalType"] = "warning";
+                    TempData["SwalMessage"] = "Only pending reservations can be canceled.";
+                    return RedirectToAction(nameof(MyReservations));
+                }
+
+                reservation.Status = ReservationStatus.Cancelled;
+                await _context.SaveChangesAsync();
+
+                TempData["SwalType"] = "success";
+                TempData["SwalMessage"] = "Your reservation has been successfully canceled.";
+                return RedirectToAction(nameof(MyReservations));
+            }
+            catch (Exception)
+            {
+                TempData["SwalType"] = "error";
+                TempData["SwalMessage"] = "An error occurred while canceling the reservation. Please try again.";
+                return RedirectToAction(nameof(MyReservations));
+            }
+        }
+
     }
 }

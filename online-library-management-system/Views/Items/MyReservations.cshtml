@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<online_library_management_system.ViewModels.ReservationVM>
 @{
+    var swalType = TempData["SwalType"]?.ToString();
+    var swalMessage = TempData["SwalMessage"]?.ToString();
     ViewData["Title"] = "My Reservations";
 }
 <!-- Start: Page Banner -->
@@ -29,22 +31,23 @@
                             <div class="page type-page status-publish hentry">
                                 <div class="entry-content">
                                     <div class="woocommerce">
-                                         <div class="product-cart-table">
+                                        <div class="product-cart-table">
                                             <table>
                                                 <thead>
                                                     <tr>
                                                         <th scope="col">Books/CDs</th>
                                                         <th scope="col">Status</th>
                                                         <th scope="col">Reserved At</th>
-                                                        <th scope="col">&nbsp;</th>
+                                                        <th scope="col">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach (var reservation in Model){
+                                                    @foreach (var reservation in Model)
+                                                    {
                                                         <tr>
                                                             <td class="productname" data-label="Book/CD">
                                                                 <span class="cart-item-thumb">
-                                                                    <img src="~/images/books-media/@reservation.ItemImageUrl" alt="@reservation.ItemTitle" class="img-thumbnail" >
+                                                                    <img src="~/images/books-media/@reservation.ItemImageUrl" alt="@reservation.ItemTitle" class="img-thumbnail">
                                                                 </span>
                                                                 <div class="wishlist-item-name">
                                                                     <h3><a asp-controller="Items" asp-action="Details" asp-route-id="@reservation.ItemId">@reservation.ItemTitle</a></h3>
@@ -59,12 +62,14 @@
                                                             <td data-label="" class="text-center">
                                                                 @if (reservation.Status == ReservationStatus.Pending)
                                                                 {
-                                                                    <a asp-action="CancelReservation" asp-route-id="@reservation.ReservationId" class="btn btn-danger btn-sm">Cancel Reservation</a>
+                                                                    <button class="btn btn-danger btn-sm" onclick="confirmCancel('@Url.Action("CancelReservation", "Items", new { id = reservation.ReservationId })');">
+                                                                        Cancel
+                                                                    </button>
                                                                 }
                                                             </td>
                                                         </tr>
-                                                        }
-                                                    </tbody>
+                                                    }
+                                                </tbody>
                                             </table>
                                         </div>
                                     </div>
@@ -79,3 +84,38 @@
     </div>
 </div>
 
+
+<script type="text/javascript">
+
+    function confirmCancel(url) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, cancel it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = url;
+            }
+        });
+    }
+
+</script>
+@if (!string.IsNullOrEmpty(swalType) && !string.IsNullOrEmpty(swalMessage))
+{
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+            Swal.fire({
+                icon: '@swalType',
+                title: 'Reservation Status',
+                text: '@swalMessage',
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true
+            });
+        });
+    </script>
+}
