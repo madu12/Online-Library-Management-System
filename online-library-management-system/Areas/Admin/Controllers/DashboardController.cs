@@ -22,6 +22,12 @@ namespace online_library_management_system.Areas.Admin.Controllers
         {
             var issuedCount = await _context.Lendings.CountAsync(l => l.Status == LendingStatus.Issued);
             var returnedCount = await _context.Lendings.CountAsync(l => l.Status == LendingStatus.Returned);
+
+            var expireLimit = DateTime.UtcNow.AddHours(-48);
+            var expiredReservationsCount = await _context.Reservations
+                .CountAsync(r => r.Status == ReservationStatus.Approved && r.ReservedAt < expireLimit);
+
+
             var overdueItems = await _context.Lendings
                 .Include(l => l.Reservation!.Item)
                 .Include(l => l.Reservation!.User)
@@ -44,7 +50,7 @@ namespace online_library_management_system.Areas.Admin.Controllers
                 TotalUsers = await _context.Users.CountAsync(),
                 TotalItems = await _context.Items.CountAsync(),
                 PendingReservations = await _context.Reservations.CountAsync(r => r.Status == ReservationStatus.Pending),
-                OverdueItems = await _context.Lendings.CountAsync(l => l.DueDate < DateTime.UtcNow && l.Status == LendingStatus.Issued),
+                ExpiredReservationsCount = expiredReservationsCount,
                 IssuedCount = issuedCount,
                 ReturnedCount = returnedCount,
                 OverdueItemsList = overdueItems
