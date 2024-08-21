@@ -44,10 +44,18 @@ namespace online_library_management_system.Areas.Admin.Controllers
                 })
                 .ToListAsync();
 
+            var guestRoleId = await _context.Roles
+                .Where(r => r.Name == "User")
+                .Select(r => r.Id)
+                .FirstOrDefaultAsync();
+
+            var totalGuests = await _context.UserRoles
+                .Where(ur => ur.RoleId == guestRoleId)
+                .CountAsync();
 
             var dashboardViewModel = new DashboardViewModel
             {
-                TotalUsers = await _context.Users.CountAsync(),
+                TotalUsers = totalGuests,
                 TotalItems = await _context.Items.CountAsync(),
                 PendingReservations = await _context.Reservations.CountAsync(r => r.Status == ReservationStatus.Pending),
                 ExpiredReservationsCount = expiredReservationsCount,
