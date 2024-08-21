@@ -38,7 +38,7 @@ namespace online_library_management_system.Areas.Admin.Controllers
                     ItemTitle = l.Reservation!.Item!.Title,
                     UserName = $"{l.Reservation!.User!.FirstName} {l.Reservation!.User.LastName}",
                     UserEmail = l.Reservation.User.Email,
-                    UserPhone = l.Reservation.User.PhoneNo,
+                    UserPhone = l.Reservation.User.PhoneNumber,
                     DueDate = l.DueDate,
                     DaysOverdue = (DateTime.UtcNow - l.DueDate).Days
                 })

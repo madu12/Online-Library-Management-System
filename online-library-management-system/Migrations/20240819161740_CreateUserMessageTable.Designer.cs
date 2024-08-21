@@ -397,9 +397,6 @@ namespace online_library_management_system.Migrations
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
-                    
-                    b.Property<string>("PhoneNo")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()

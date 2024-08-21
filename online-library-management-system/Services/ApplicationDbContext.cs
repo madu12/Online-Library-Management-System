@@ -30,7 +30,6 @@ namespace online_library_management_system.Services
             // Adding custom properties to ApplicationUser
             builder.Entity<ApplicationUser>().Property<string>("FirstName");
             builder.Entity<ApplicationUser>().Property<string>("LastName");
-            builder.Entity<ApplicationUser>().Property<string>("PhoneNo");
             builder.Entity<ApplicationUser>().Property<string>("Address");
 
             // Configuring Identity Role tables
