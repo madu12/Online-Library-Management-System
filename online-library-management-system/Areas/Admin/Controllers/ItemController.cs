@@ -97,7 +97,7 @@ namespace online_library_management_system.Areas.Admin.Controllers
                     _context.Items.Add(item);
                     await _context.SaveChangesAsync();
 
-                    TempData["SuccessMessage"] = "Item added successfully!";
+                    TempData["SuccessMessage"] = "The Book/CD is successfully added!";
                     return RedirectToAction(nameof(Index));
                 }
 
@@ -191,7 +191,7 @@ namespace online_library_management_system.Areas.Admin.Controllers
                 _context.Items.Update(item);
                 await _context.SaveChangesAsync();
 
-                TempData["SuccessMessage"] = "Item updated successfully!";
+                TempData["SuccessMessage"] = "The Book/CD is successfully updated!";
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception)
@@ -222,7 +222,7 @@ namespace online_library_management_system.Areas.Admin.Controllers
 
             _context.Items.Remove(item);
             await _context.SaveChangesAsync();
-            return Json(new { success = true, message = "Item deleted successfully!" });
+            return Json(new { success = true, message = "The Book/CD is successfully deleted!" });
         }
 
         [NonAction]

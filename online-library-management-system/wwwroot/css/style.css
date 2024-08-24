@@ -27568,4 +27568,11 @@ div:where(.swal2-container) .swal2-html-container{
   padding: 1em 1.6em 2em !important;
 }
 
+.validation-summary-errors ul{
+  margin: 0px;
+}
+
+.validation-summary-errors ul li{
+  list-style: none;
+}
 /*# sourceMappingURL=style.css.map */

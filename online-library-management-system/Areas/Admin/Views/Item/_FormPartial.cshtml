@@ -7,7 +7,7 @@
 @if (Model.NewItem != null)
 {
     <form class="form" asp-action="@action" asp-controller="Item" asp-area="Admin" method="post" enctype="multipart/form-data">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
         <div class="box-body">
             <div class="form-group">
                 <label asp-for="NewItem.Title" class="form-label">Title</label>
