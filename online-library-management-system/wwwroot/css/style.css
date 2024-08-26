@@ -12658,13 +12658,18 @@ a:focus {
 }
 
 .layout-v2 .navbar-default .navbar-nav>li {
-  padding: 0 20px;
+  padding: 0px;
 }
 
 .layout-v2 .navbar-default .navbar-nav>li>a {
-  color: #f0582f;
+  color: #fff;
   position: relative;
+  border-radius: 30px;
+  padding: 9px 40px 11px;
   font-size: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: 15px;
 }
 
 

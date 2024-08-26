@@ -10,12 +10,12 @@
 
     @if (User.IsInRole("Admin"))
     {
-        <a class="btn btn-default" asp-action="Index" asp-controller="Admin">Admin Portal</a>
+        <a class="btn btn-default" style="background: #7551e5;" asp-action="Index" asp-controller="Admin">Admin Portal</a>
 
     }
     else
     {
-        <a class="btn btn-default" asp-action="MyReservations" asp-controller="Items">My Reservations</a>
+        <a class="btn btn-default" style="background: #7551e5;" asp-action="MyReservations" asp-controller="Items">My Reservations</a>
 
     }
     <a class="btn btn-default" asp-action="Logout" asp-controller="Account">Logout</a>
@@ -23,7 +23,7 @@
 else
 {
 
-    <a class="btn btn-default" id="register" asp-controller="Account" asp-action="Register">Register</a>
+    <a class="btn btn-default" style="background: #7551e5;" id="register" asp-controller="Account" asp-action="Register">Register</a>
     <a class="btn btn-default" id="login" asp-controller="Account" asp-action="Login">Login</a>
 
 }
